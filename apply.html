@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply Now - Nexa Mortgage</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <i class="fas fa-home"></i>
+          <span>Nexa Mortgage</span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="loan-programs.html" class="nav-link">Loan Programs</a>
+          </li>
+          <li class="nav-item">
+            <a href="calculator.html" class="nav-link">Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="contact.html" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="apply.html" class="nav-link apply-btn">Apply Now</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Start Your Application</h1>
+        <p>Take the first step towards homeownership with our simple application process</p>
+      </div>
+    </section>
+
+    <!-- Application Process Section -->
+    <section class="process-section">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="process-grid">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h3>Complete Application</h3>
+            <p>Fill out our simple online application form with your basic information</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h3>Document Review</h3>
+            <p>Our team reviews your application and requests necessary documents</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h3>Pre-Approval</h3>
+            <p>Receive your pre-approval letter within 24-48 hours</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <h3>Loan Processing</h3>
+            <p>We process your loan and keep you updated throughout the process</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apply Section -->
+    <section class="apply-section">
+      <div class="container">
+        <div class="apply-content">
+          <div class="apply-text" data-aos="fade-right">
+            <h2>Ready to Get Started?</h2>
+            <p>
+              Take the first step towards homeownership. Our simple application process takes just minutes to complete, and there are no application fees.
+            </p>
+            <div class="apply-features">
+              <div class="apply-feature">
+                <i class="fas fa-check"></i>
+                <span>No application fees</span>
+              </div>
+              <div class="apply-feature">
+                <i class="fas fa-check"></i>
+                <span>Quick pre-approval</span>
+              </div>
+              <div class="apply-feature">
+                <i class="fas fa-check"></i>
+                <span>Secure application</span>
+              </div>
+              <div class="apply-feature">
+                <i class="fas fa-check"></i>
+                <span>Expert guidance</span>
+              </div>
+              <div class="apply-feature">
+                <i class="fas fa-check"></i>
+                <span>24/7 support</span>
+              </div>
+            </div>
+            
+            <div class="apply-info">
+              <h3>What You'll Need</h3>
+              <ul>
+                <li>Social Security Number</li>
+                <li>Driver's License or ID</li>
+                <li>Recent pay stubs (last 30 days)</li>
+                <li>Bank statements (last 2 months)</li>
+                <li>W-2 forms (last 2 years)</li>
+                <li>Tax returns (last 2 years)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="apply-form" data-aos="fade-left">
+            <h3>Start Your Application</h3>
+            <p>Fill out the form below and we'll contact you within 24 hours to discuss your options.</p>
+            
+            <form id="applicationForm">
+              <div class="form-section">
+                <h4>Personal Information</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <input type="text" placeholder="First Name" required />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" placeholder="Last Name" required />
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <input type="email" placeholder="Email Address" required />
+                </div>
+                
+                <div class="form-group">
+                  <input type="tel" placeholder="Phone Number" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="text" placeholder="Social Security Number" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="date" placeholder="Date of Birth" required />
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Loan Information</h4>
+                <div class="form-group">
+                  <select required>
+                    <option value="">Loan Type</option>
+                    <option value="purchase">Purchase</option>
+                    <option value="refinance">Refinance</option>
+                    <option value="cashout">Cash Out Refinance</option>
+                    <option value="construction">Construction</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <select required>
+                    <option value="">Property Type</option>
+                    <option value="single-family">Single Family Home</option>
+                    <option value="condo">Condominium</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="multi-family">Multi-Family</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <input type="number" placeholder="Estimated Home Price" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="number" placeholder="Down Payment Amount" required />
+                </div>
+
+                <div class="form-group">
+                  <select required>
+                    <option value="">Loan Term</option>
+                    <option value="30">30 Years</option>
+                    <option value="20">20 Years</option>
+                    <option value="15">15 Years</option>
+                    <option value="10">10 Years</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Employment & Income</h4>
+                <div class="form-group">
+                  <input type="text" placeholder="Employer Name" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="text" placeholder="Job Title" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="number" placeholder="Annual Income" required />
+                </div>
+
+                <div class="form-group">
+                  <input type="number" placeholder="Years Employed" required />
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4>Additional Information</h4>
+                <div class="form-group">
+                  <textarea placeholder="Tell us about your situation or any questions you have" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" required />
+                    <span class="checkmark"></span>
+                    I authorize Nexa Mortgage to pull my credit report
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" required />
+                    <span class="checkmark"></span>
+                    I agree to receive communications from Nexa Mortgage
+                  </label>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary btn-large">
+                <i class="fas fa-rocket"></i>
+                Submit Application
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+      <div class="container">
+        <h2 class="section-title">Why Choose Nexa Mortgage?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Fast Processing</h3>
+            <p>Get pre-approved in 24-48 hours with our streamlined process</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-percentage"></i>
+            </div>
+            <h3>Competitive Rates</h3>
+            <p>Access to the best rates from multiple lenders</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Expert Support</h3>
+            <p>Dedicated loan officer assigned to your application</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure & Confidential</h3>
+            <p>Bank-level security protects your personal information</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Questions About the Application?</h2>
+          <p>Our mortgage experts are here to help you through every step of the process</p>
+          <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-outline">Speak with an Expert</a>
+            <a href="calculator.html" class="btn btn-primary">Calculate Payment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <div class="footer-logo">
+              <i class="fas fa-home"></i>
+              <span>Nexa Mortgage</span>
+            </div>
+            <p>
+              Your trusted partner in home financing. We make the mortgage
+              process simple, transparent, and stress-free.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="loan-programs.html">Loan Programs</a></li>
+              <li><a href="calculator.html">Calculator</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Loan Programs</h3>
+            <ul>
+              <li><a href="loan-programs.html">Conventional Loans</a></li>
+              <li><a href="loan-programs.html">FHA Loans</a></li>
+              <li><a href="loan-programs.html">VA Loans</a></li>
+              <li><a href="loan-programs.html">Jumbo Loans</a></li>
+              <li><a href="loan-programs.html">Refinancing</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@nexamortgage.com</p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Mortgage Lane, Finance
+              City, FC 12345
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Nexa Mortgage. All rights reserved. | NMLS #1234567</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html> 

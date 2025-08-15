@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mortgage Calculator - Nexa Mortgage</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <i class="fas fa-home"></i>
+          <span>Nexa Mortgage</span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="loan-programs.html" class="nav-link">Loan Programs</a>
+          </li>
+          <li class="nav-item">
+            <a href="calculator.html" class="nav-link">Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="contact.html" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="apply.html" class="nav-link apply-btn">Apply Now</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Mortgage Calculator</h1>
+        <p>Calculate your monthly mortgage payment and understand your costs</p>
+      </div>
+    </section>
+
+    <!-- Mortgage Calculator Section -->
+    <section class="calculator-section">
+      <div class="container">
+        <div class="calculator-container">
+          <div class="calculator-form" data-aos="fade-right">
+            <h3>Enter Your Details</h3>
+            <div class="input-group">
+              <label for="homePrice">Home Price</label>
+              <div class="input-wrapper">
+                <span class="currency">$</span>
+                <input
+                  type="number"
+                  id="homePrice"
+                  value="300000"
+                  min="50000"
+                  max="2000000"
+                />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="downPayment">Down Payment</label>
+              <div class="input-wrapper">
+                <span class="currency">$</span>
+                <input
+                  type="number"
+                  id="downPayment"
+                  value="60000"
+                  min="10000"
+                  max="1000000"
+                />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="interestRate">Interest Rate (%)</label>
+              <div class="input-wrapper">
+                <input
+                  type="number"
+                  id="interestRate"
+                  value="6.5"
+                  min="2"
+                  max="15"
+                  step="0.1"
+                />
+                <span class="percentage">%</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="loanTerm">Loan Term (Years)</label>
+              <div class="input-wrapper">
+                <select id="loanTerm">
+                  <option value="30">30 Years</option>
+                  <option value="20">20 Years</option>
+                  <option value="15">15 Years</option>
+                  <option value="10">10 Years</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="propertyTax">Annual Property Tax</label>
+              <div class="input-wrapper">
+                <span class="currency">$</span>
+                <input
+                  type="number"
+                  id="propertyTax"
+                  value="3000"
+                  min="0"
+                  max="50000"
+                />
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="insurance">Annual Insurance</label>
+              <div class="input-wrapper">
+                <span class="currency">$</span>
+                <input
+                  type="number"
+                  id="insurance"
+                  value="1200"
+                  min="0"
+                  max="10000"
+                />
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="calculateMortgage()">
+              Calculate Payment
+            </button>
+          </div>
+          <div class="calculator-results" data-aos="fade-left">
+            <div class="results-card">
+              <h3>Monthly Payment</h3>
+              <div class="payment-amount" id="monthlyPayment">$1,518</div>
+              <div class="payment-breakdown">
+                <div class="breakdown-item">
+                  <span>Principal & Interest</span>
+                  <span id="principalInterest">$1,518</span>
+                </div>
+                <div class="breakdown-item">
+                  <span>Property Tax</span>
+                  <span id="propertyTaxResult">$250</span>
+                </div>
+                <div class="breakdown-item">
+                  <span>Insurance</span>
+                  <span id="insuranceResult">$100</span>
+                </div>
+              </div>
+              <div class="total-cost">
+                <span>Total Cost</span>
+                <span id="totalCost">$546,480</span>
+              </div>
+              <div class="loan-summary">
+                <div class="summary-item">
+                  <span>Loan Amount</span>
+                  <span id="loanAmount">$240,000</span>
+                </div>
+                <div class="summary-item">
+                  <span>Down Payment %</span>
+                  <span id="downPaymentPercent">20%</span>
+                </div>
+                <div class="summary-item">
+                  <span>Total Interest</span>
+                  <span id="totalInterest">$306,480</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Tools Section -->
+    <section class="tools-section">
+      <div class="container">
+        <h2 class="section-title">Additional Mortgage Tools</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <h3>Amortization Schedule</h3>
+            <p>See how your payments break down over the life of your loan</p>
+            <button class="btn btn-outline" onclick="showAmortization()">View Schedule</button>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h3>Refinance Calculator</h3>
+            <p>Calculate potential savings from refinancing your mortgage</p>
+            <button class="btn btn-outline">Calculate Savings</button>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3>Affordability Calculator</h3>
+            <p>Determine how much house you can afford based on your income</p>
+            <button class="btn btn-outline">Check Affordability</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+      <div class="container">
+        <h2 class="section-title">Mortgage Tips & Insights</h2>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <h3>Understanding Your Payment</h3>
+            <p>Your monthly mortgage payment includes principal, interest, property taxes, and insurance (PITI). Understanding this breakdown helps you budget effectively.</p>
+          </div>
+          <div class="tip-card">
+            <h3>Down Payment Impact</h3>
+            <p>A larger down payment reduces your loan amount and monthly payment. It can also help you avoid private mortgage insurance (PMI).</p>
+          </div>
+          <div class="tip-card">
+            <h3>Interest Rate Matters</h3>
+            <p>Even a small difference in interest rate can significantly impact your total cost over the life of the loan. Shop around for the best rates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Get Pre-Approved?</h2>
+          <p>Use our calculator to estimate your payment, then get pre-approved for your dream home</p>
+          <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-outline">Speak with an Expert</a>
+            <a href="apply.html" class="btn btn-primary">Start Application</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <div class="footer-logo">
+              <i class="fas fa-home"></i>
+              <span>Nexa Mortgage</span>
+            </div>
+            <p>
+              Your trusted partner in home financing. We make the mortgage
+              process simple, transparent, and stress-free.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="loan-programs.html">Loan Programs</a></li>
+              <li><a href="calculator.html">Calculator</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Loan Programs</h3>
+            <ul>
+              <li><a href="loan-programs.html">Conventional Loans</a></li>
+              <li><a href="loan-programs.html">FHA Loans</a></li>
+              <li><a href="loan-programs.html">VA Loans</a></li>
+              <li><a href="loan-programs.html">Jumbo Loans</a></li>
+              <li><a href="loan-programs.html">Refinancing</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@nexamortgage.com</p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Mortgage Lane, Finance
+              City, FC 12345
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Nexa Mortgage. All rights reserved. | NMLS #1234567</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html> 

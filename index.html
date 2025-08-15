@@ -24,22 +24,22 @@
         </div>
         <ul class="nav-menu">
           <li class="nav-item">
-            <a href="#home" class="nav-link">Home</a>
+            <a href="index.html" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#programs" class="nav-link">Loan Programs</a>
+            <a href="loan-programs.html" class="nav-link">Loan Programs</a>
           </li>
           <li class="nav-item">
-            <a href="#calculator" class="nav-link">Calculator</a>
+            <a href="calculator.html" class="nav-link">Calculator</a>
           </li>
           <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
+            <a href="about.html" class="nav-link">About</a>
           </li>
           <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="contact.html" class="nav-link">Contact</a>
           </li>
           <li class="nav-item">
-            <a href="#apply" class="nav-link apply-btn">Apply Now</a>
+            <a href="apply.html" class="nav-link apply-btn">Apply Now</a>
           </li>
         </ul>
         <div class="hamburger">
@@ -52,6 +52,14 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+      <div class="hero-background">
+        <img
+          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80"
+          alt="Beautiful modern house with reflection"
+          class="hero-image-bg"
+        />
+        <div class="hero-overlay"></div>
+      </div>
       <div class="hero-content">
         <div class="hero-text">
           <h1 class="hero-title">
@@ -63,23 +71,17 @@
             needs
           </p>
           <div class="hero-buttons fade-in-delay-3">
-            <button
-              class="btn btn-primary"
-              onclick="scrollToSection('calculator')"
-            >
+            <a href="calculator.html" class="btn btn-primary">
               <i class="fas fa-calculator"></i>
               Calculate Payment
-            </button>
-            <button
-              class="btn btn-secondary"
-              onclick="scrollToSection('apply')"
-            >
+            </a>
+            <a href="apply.html" class="btn btn-secondary">
               <i class="fas fa-rocket"></i>
               Get Started
-            </button>
+            </a>
           </div>
         </div>
-        <div class="hero-image fade-in-delay-4">
+        <div class="hero-card fade-in-delay-4">
           <div class="floating-card">
             <div class="card-content">
               <h3>Quick Quote</h3>
@@ -143,298 +145,20 @@
       </div>
     </section>
 
-    <!-- Loan Programs Section -->
-    <section id="programs" class="loan-programs">
+    <!-- CTA Section -->
+    <section class="cta-section">
       <div class="container">
-        <h2 class="section-title">Our Loan Programs</h2>
-        <div class="programs-grid">
-          <div class="program-card" data-aos="fade-right">
-            <div class="program-icon">
-              <i class="fas fa-home"></i>
-            </div>
-            <h3>Conventional Loans</h3>
-            <p>Traditional mortgage options with competitive rates</p>
-            <ul>
-              <li>Down payment as low as 3%</li>
-              <li>Flexible credit requirements</li>
-              <li>No PMI with 20% down</li>
-            </ul>
-            <button class="btn btn-outline">Learn More</button>
-          </div>
-          <div class="program-card" data-aos="fade-up">
-            <div class="program-icon">
-              <i class="fas fa-flag"></i>
-            </div>
-            <h3>FHA Loans</h3>
-            <p>Government-backed loans for first-time homebuyers</p>
-            <ul>
-              <li>Down payment as low as 3.5%</li>
-              <li>Lower credit score requirements</li>
-              <li>Competitive interest rates</li>
-            </ul>
-            <button class="btn btn-outline">Learn More</button>
-          </div>
-          <div class="program-card" data-aos="fade-left">
-            <div class="program-icon">
-              <i class="fas fa-university"></i>
-            </div>
-            <h3>VA Loans</h3>
-            <p>Special financing for veterans and service members</p>
-            <ul>
-              <li>No down payment required</li>
-              <li>No PMI</li>
-              <li>Competitive rates</li>
-            </ul>
-            <button class="btn btn-outline">Learn More</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mortgage Calculator Section -->
-    <section id="calculator" class="calculator-section">
-      <div class="container">
-        <h2 class="section-title">Mortgage Calculator</h2>
-        <div class="calculator-container">
-          <div class="calculator-form" data-aos="fade-right">
-            <div class="input-group">
-              <label for="homePrice">Home Price</label>
-              <div class="input-wrapper">
-                <span class="currency">$</span>
-                <input
-                  type="number"
-                  id="homePrice"
-                  value="300000"
-                  min="50000"
-                  max="2000000"
-                />
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="downPayment">Down Payment</label>
-              <div class="input-wrapper">
-                <span class="currency">$</span>
-                <input
-                  type="number"
-                  id="downPayment"
-                  value="60000"
-                  min="10000"
-                  max="1000000"
-                />
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="interestRate">Interest Rate (%)</label>
-              <div class="input-wrapper">
-                <input
-                  type="number"
-                  id="interestRate"
-                  value="6.5"
-                  min="2"
-                  max="15"
-                  step="0.1"
-                />
-                <span class="percentage">%</span>
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="loanTerm">Loan Term (Years)</label>
-              <div class="input-wrapper">
-                <select id="loanTerm">
-                  <option value="30">30 Years</option>
-                  <option value="20">20 Years</option>
-                  <option value="15">15 Years</option>
-                  <option value="10">10 Years</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="calculateMortgage()">
-              Calculate Payment
-            </button>
-          </div>
-          <div class="calculator-results" data-aos="fade-left">
-            <div class="results-card">
-              <h3>Monthly Payment</h3>
-              <div class="payment-amount" id="monthlyPayment">$1,518</div>
-              <div class="payment-breakdown">
-                <div class="breakdown-item">
-                  <span>Principal & Interest</span>
-                  <span id="principalInterest">$1,518</span>
-                </div>
-                <div class="breakdown-item">
-                  <span>Property Tax</span>
-                  <span id="propertyTax">$250</span>
-                </div>
-                <div class="breakdown-item">
-                  <span>Insurance</span>
-                  <span id="insurance">$100</span>
-                </div>
-              </div>
-              <div class="total-cost">
-                <span>Total Cost</span>
-                <span id="totalCost">$546,480</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-      <div class="container">
-        <div class="about-content">
-          <div class="about-text" data-aos="fade-right">
-            <h2>About Nexa Mortgage</h2>
-            <p>
-              We're a trusted mortgage company dedicated to helping families
-              achieve their dream of homeownership. With years of experience and
-              a commitment to excellence, we provide personalized service and
-              competitive rates.
-            </p>
-            <div class="stats">
-              <div class="stat-item">
-                <div class="stat-number">500+</div>
-                <div class="stat-label">Happy Families</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">$50M+</div>
-                <div class="stat-label">Loans Funded</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">4.9</div>
-                <div class="stat-label">Customer Rating</div>
-              </div>
-            </div>
-          </div>
-          <div class="about-image" data-aos="fade-left">
-            <div class="image-placeholder">
-              <i class="fas fa-users"></i>
-              <p>Our Team</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-      <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-content">
-          <div class="contact-info" data-aos="fade-right">
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div>
-                <h3>Phone</h3>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div>
-                <h3>Email</h3>
-                <p>info@nexamortgage.com</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div>
-                <h3>Address</h3>
-                <p>123 Mortgage Lane<br />Finance City, FC 12345</p>
-              </div>
-            </div>
-          </div>
-          <div class="contact-form" data-aos="fade-left">
-            <form>
-              <div class="form-row">
-                <div class="form-group">
-                  <input type="text" placeholder="First Name" required />
-                </div>
-                <div class="form-group">
-                  <input type="text" placeholder="Last Name" required />
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="email" placeholder="Email Address" required />
-              </div>
-              <div class="form-group">
-                <input type="tel" placeholder="Phone Number" required />
-              </div>
-              <div class="form-group">
-                <textarea placeholder="Message" rows="4"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Apply Section -->
-    <section id="apply" class="apply-section">
-      <div class="container">
-        <div class="apply-content">
-          <div class="apply-text" data-aos="fade-right">
-            <h2>Ready to Get Started?</h2>
-            <p>
-              Take the first step towards homeownership. Our simple application
-              process takes just minutes to complete.
-            </p>
-            <div class="apply-features">
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>No application fees</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>Quick pre-approval</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>Secure application</span>
-              </div>
-            </div>
-          </div>
-          <div class="apply-form" data-aos="fade-left">
-            <h3>Start Your Application</h3>
-            <form>
-              <div class="form-group">
-                <input type="text" placeholder="Full Name" required />
-              </div>
-              <div class="form-group">
-                <input type="email" placeholder="Email" required />
-              </div>
-              <div class="form-group">
-                <input type="tel" placeholder="Phone" required />
-              </div>
-              <div class="form-group">
-                <select required>
-                  <option value="">Loan Type</option>
-                  <option value="purchase">Purchase</option>
-                  <option value="refinance">Refinance</option>
-                  <option value="cashout">Cash Out</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <input
-                  type="number"
-                  placeholder="Estimated Home Price"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary btn-large">
-                Start Application
-              </button>
-            </form>
+        <div class="cta-content">
+          <h2>Ready to Start Your Home Journey?</h2>
+          <p>
+            Join thousands of families who have achieved their dream of
+            homeownership with Nexa Mortgage
+          </p>
+          <div class="cta-buttons">
+            <a href="loan-programs.html" class="btn btn-outline"
+              >Explore Programs</a
+            >
+            <a href="apply.html" class="btn btn-primary">Start Application</a>
           </div>
         </div>
       </div>
@@ -463,21 +187,21 @@
           <div class="footer-section">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#programs">Loan Programs</a></li>
-              <li><a href="#calculator">Calculator</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="loan-programs.html">Loan Programs</a></li>
+              <li><a href="calculator.html">Calculator</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h3>Loan Programs</h3>
             <ul>
-              <li><a href="#">Conventional Loans</a></li>
-              <li><a href="#">FHA Loans</a></li>
-              <li><a href="#">VA Loans</a></li>
-              <li><a href="#">Jumbo Loans</a></li>
-              <li><a href="#">Refinancing</a></li>
+              <li><a href="loan-programs.html">Conventional Loans</a></li>
+              <li><a href="loan-programs.html">FHA Loans</a></li>
+              <li><a href="loan-programs.html">VA Loans</a></li>
+              <li><a href="loan-programs.html">Jumbo Loans</a></li>
+              <li><a href="loan-programs.html">Refinancing</a></li>
             </ul>
           </div>
           <div class="footer-section">
