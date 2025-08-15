@@ -1,3 +1,26 @@
+/* CSS Variables */
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #1d4ed8;
+  --accent-color: #f59e0b;
+  --accent-secondary: #10b981;
+  --accent-tertiary: #8b5cf6;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --background-light: #f8fafc;
+  --background-white: #ffffff;
+  --border-color: #e2e8f0;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  --gradient-secondary: linear-gradient(135deg, #60a5fa, #3b82f6);
+  --gradient-accent: linear-gradient(135deg, #fbbf24, #f59e0b);
+  --gradient-success: linear-gradient(135deg, #10b981, #059669);
+  --gradient-purple: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  --gradient-warm: linear-gradient(135deg, #f97316, #ea580c);
+}
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -49,7 +72,10 @@ body {
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2563eb;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .nav-logo .logo-img {
@@ -74,7 +100,7 @@ body {
 }
 
 .nav-link:hover {
-  color: #2563eb;
+  color: var(--accent-color);
 }
 
 .nav-link::after {
@@ -84,7 +110,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: #2563eb;
+  background: var(--gradient-accent);
   transition: width 0.3s ease;
 }
 
@@ -93,11 +119,12 @@ body {
 }
 
 .apply-btn {
-  background: #2563eb;
+  background: var(--gradient-accent);
   color: white !important;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
 }
 
 .apply-btn:hover {
@@ -155,7 +182,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2),
+    rgba(139, 92, 246, 0.2)
+  );
   z-index: 2;
 }
 
@@ -233,14 +264,15 @@ body {
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: var(--gradient-primary);
   color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background: var(--gradient-secondary);
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
 }
 
 .btn-secondary {
@@ -257,14 +289,16 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: #2563eb;
-  border: 2px solid #2563eb;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 .btn-outline:hover {
-  background: #2563eb;
+  background: var(--gradient-primary);
   color: white;
+  border-color: transparent;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
 .btn-small {
@@ -330,8 +364,9 @@ body {
 
 .quote-input:focus {
   outline: none;
-  border-color: #1e40af;
-  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+  transform: translateY(-2px);
 }
 
 .scroll-indicator {
@@ -403,14 +438,30 @@ body {
 /* Features Section */
 .features {
   padding: 5rem 0;
-  background: #f8fafc;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.features::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23e0f2fe" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23e0f2fe" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23e0f2fe" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
 }
 
 .section-title {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1e293b;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 3rem;
   position: relative;
 }
@@ -423,8 +474,9 @@ body {
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #2563eb, #1e40af);
+  background: var(--gradient-accent);
   border-radius: 2px;
+  box-shadow: 0 2px 10px rgba(251, 191, 36, 0.3);
 }
 
 .features-grid {
@@ -442,17 +494,35 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-accent);
 }
 
 .feature-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-color);
+}
+
+.feature-card:hover .feature-icon {
+  animation: pulse 1s ease-in-out;
+  background: var(--gradient-warm);
 }
 
 .feature-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  background: var(--gradient-success);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -460,6 +530,7 @@ body {
   margin: 0 auto 1.5rem;
   font-size: 2rem;
   color: white;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 .feature-card h3 {
@@ -503,7 +574,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.3),
+    rgba(59, 130, 246, 0.3)
+  );
   z-index: 2;
 }
 
@@ -571,6 +646,19 @@ body {
   padding: 5rem 0;
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  opacity: 0.1;
 }
 
 .cta-content {
@@ -601,9 +689,21 @@ body {
 
 /* Footer */
 .footer {
-  background: #0f172a;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
   padding: 3rem 0 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-accent);
 }
 
 .footer-content {
@@ -668,20 +768,22 @@ body {
 .social-links a {
   width: 40px;
   height: 40px;
-  background: #1e293b;
+  background: var(--gradient-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #94a3b8;
+  color: white;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .social-links a:hover {
-  background: #1e40af;
+  background: var(--gradient-accent);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
 }
 
 .footer-bottom {
@@ -689,6 +791,53 @@ body {
   padding-top: 2rem;
   border-top: 1px solid #1e293b;
   color: #94a3b8;
+}
+
+/* Enhanced Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 }
 
 /* Responsive Design */
@@ -851,9 +1000,22 @@ textarea:focus {
 /* Page Header Styles */
 .page-header {
   padding: 8rem 0 4rem;
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="waves" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 50 Q25 25 50 50 T100 50" stroke="%23ffffff" fill="none" stroke-width="2" opacity="0.1"/><path d="M0 60 Q25 35 50 60 T100 60" stroke="%23ffffff" fill="none" stroke-width="2" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23waves)"/></svg>');
+  opacity: 0.1;
 }
 
 .page-header h1 {
@@ -870,7 +1032,20 @@ textarea:focus {
 /* Loan Programs Page Styles */
 .loan-programs {
   padding: 5rem 0;
-  background: white;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.loan-programs::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circles" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="3" fill="%23fbbf24" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23circles)"/></svg>');
+  opacity: 0.3;
 }
 
 .programs-grid {
@@ -889,6 +1064,7 @@ textarea:focus {
   border: 1px solid #e5e7eb;
   position: relative;
   overflow: hidden;
+  border-top: 4px solid var(--accent-color);
 }
 
 .program-card::before {
@@ -1014,7 +1190,20 @@ textarea:focus {
 /* Calculator Page Styles */
 .calculator-section {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.calculator-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="squares" width="30" height="30" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="3" height="3" fill="%2310b981" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23squares)"/></svg>');
+  opacity: 0.3;
 }
 
 .calculator-container {
@@ -1029,6 +1218,10 @@ textarea:focus {
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), var(--gradient-success);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .calculator-form h3 {
@@ -1097,6 +1290,10 @@ textarea:focus {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
   text-align: center;
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), var(--gradient-accent);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .payment-amount {
@@ -1239,7 +1436,20 @@ textarea:focus {
 /* About Page Styles */
 .about-section {
   padding: 5rem 0;
-  background: white;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20 30 Q20 20 15 15 Q10 20 20 30" fill="%23fca5a5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+  opacity: 0.3;
 }
 
 .about-content {
@@ -1482,7 +1692,20 @@ textarea:focus {
 /* Contact Page Styles */
 .contact-section {
   padding: 5rem 0;
-  background: #f8fafc;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" width="60" height="60" patternUnits="userSpaceOnUse"><polygon points="30,10 32,20 40,20 34,25 36,35 30,30 24,35 26,25 20,20 28,20" fill="%2360a5fa" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+  opacity: 0.3;
 }
 
 .contact-content {
@@ -1543,11 +1766,75 @@ textarea:focus {
   font-style: italic;
 }
 
+.contact-item-with-map {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-map {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.mini-map:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.mini-map i:first-child {
+  font-size: 2rem;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.mini-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #2563eb;
+  transition: all 0.3s ease;
+}
+
+.mini-map-link:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+}
+
 .contact-form {
   background: white;
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), var(--gradient-primary);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .contact-form h3 {
@@ -1601,30 +1888,68 @@ textarea:focus {
 
 .map-container {
   margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
-.map-placeholder {
+.map-wrapper {
   background: white;
-  padding: 3rem;
   border-radius: 20px;
-  text-align: center;
+  overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.map-placeholder i {
-  font-size: 4rem;
+.map-wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 300px;
+}
+
+.map-placeholder-content {
+  padding: 3rem;
+  text-align: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-placeholder-content i {
+  font-size: 3rem;
   color: #2563eb;
   margin-bottom: 1rem;
 }
 
-.map-placeholder h3 {
+.map-placeholder-content h4 {
   font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.map-placeholder-content p {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.map-info {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.map-info h3 {
+  font-size: 1.3rem;
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 1rem;
 }
 
-.map-placeholder p {
+.map-info p {
   color: #64748b;
   margin-bottom: 2rem;
   line-height: 1.6;
@@ -1688,6 +2013,19 @@ textarea:focus {
   padding: 5rem 0;
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.apply-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  opacity: 0.3;
 }
 
 .apply-content {
@@ -1970,5 +2308,19 @@ textarea:focus {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .map-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-item-with-map {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-map {
+    justify-content: flex-start;
   }
 }
