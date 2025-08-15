@@ -52,8 +52,10 @@ body {
   color: #2563eb;
 }
 
-.nav-logo i {
-  font-size: 2rem;
+.nav-logo .logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .nav-menu {
@@ -153,7 +155,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
@@ -328,8 +330,8 @@ body {
 
 .quote-input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
 }
 
 .scroll-indicator {
@@ -421,7 +423,7 @@ body {
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  background: linear-gradient(90deg, #2563eb, #1e40af);
   border-radius: 2px;
 }
 
@@ -450,7 +452,7 @@ body {
 .feature-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -470,6 +472,98 @@ body {
 .feature-card p {
   color: #64748b;
   line-height: 1.6;
+}
+
+/* Banner Section with QR Code */
+.banner-section {
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.banner-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.banner-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+
+.banner-text h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.banner-text p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.banner-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.banner-feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.banner-feature i {
+  color: #60a5fa;
+  font-size: 1.2rem;
+  width: 20px;
+}
+
+.banner-qr {
+  text-align: center;
+}
+
+.qr-code {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.banner-qr p {
+  color: white;
+  font-weight: 500;
 }
 
 /* CTA Section */
@@ -529,8 +623,10 @@ body {
   margin-bottom: 1rem;
 }
 
-.footer-logo i {
-  font-size: 2rem;
+.footer-logo .logo-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .footer-section p {
@@ -560,7 +656,7 @@ body {
 }
 
 .footer-section ul li a:hover {
-  color: #2563eb;
+  color: #1e40af;
 }
 
 .social-links {
@@ -583,7 +679,7 @@ body {
 }
 
 .social-links a:hover {
-  background: #2563eb;
+  background: #1e40af;
   color: white;
   transform: translateY(-2px);
 }
@@ -634,6 +730,16 @@ body {
 
   .cta-buttons {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .banner-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .banner-features {
     align-items: center;
   }
 
@@ -728,7 +834,7 @@ html {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
 }
 
@@ -745,7 +851,7 @@ textarea:focus {
 /* Page Header Styles */
 .page-header {
   padding: 8rem 0 4rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
   color: white;
   text-align: center;
 }
@@ -792,7 +898,7 @@ textarea:focus {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  background: linear-gradient(90deg, #2563eb, #1e40af);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -809,7 +915,7 @@ textarea:focus {
 .program-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -975,8 +1081,8 @@ textarea:focus {
 .input-wrapper input:focus,
 .input-wrapper select:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
 }
 
 .calculator-results {
@@ -1069,7 +1175,7 @@ textarea:focus {
 .tool-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1240,7 +1346,7 @@ textarea:focus {
 .value-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -1409,7 +1515,7 @@ textarea:focus {
 .contact-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -1555,7 +1661,7 @@ textarea:focus {
 .step-number {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1719,8 +1825,8 @@ textarea:focus {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
 }
 
 .form-group textarea {
@@ -1792,7 +1898,7 @@ textarea:focus {
 .benefit-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(135deg, #2563eb, #1e40af);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1819,49 +1925,49 @@ textarea:focus {
   .page-header h1 {
     font-size: 2.5rem;
   }
-  
+
   .about-content,
   .contact-content,
   .apply-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .calculator-container {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .programs-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .tools-grid,
   .tips-grid,
   .faq-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .values-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  
+
   .team-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .awards-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .process-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .benefits-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
