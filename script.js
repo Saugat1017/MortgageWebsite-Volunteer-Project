@@ -566,7 +566,7 @@ Employment & Income:
 Additional Information:
 ${applicationData.additionalInfo}
 
-This application was submitted from the Landing Solution website.
+This application was submitted from the Don Mario's Lending Solutions website.
   `;
 
   // Open email client with pre-filled data
@@ -625,7 +625,7 @@ Preferred Contact Method: ${contactData.contactMethod}
 Message:
 ${contactData.message}
 
-This message was sent from the Landing Solution website.
+This message was sent from the Don Mario's Lending Solutions website.
   `;
 
   // Open email client with pre-filled data
