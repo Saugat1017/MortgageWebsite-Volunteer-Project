@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (homeValue && downPayment) {
         showNotification(
-          "Quote request submitted! We'll get back to you soon.",
+          "Quote request submitted! I'll get back to you soon.",
           "success"
         );
         quoteForm.reset();
@@ -619,7 +619,7 @@ Contact Information:
 - Email: ${contactData.email}
 - Phone: ${contactData.phone}
 
-How can we help: ${contactData.helpType}
+How can I help: ${contactData.helpType}
 Preferred Contact Method: ${contactData.contactMethod}
 
 Message:
