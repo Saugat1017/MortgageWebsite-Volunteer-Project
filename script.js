@@ -645,30 +645,33 @@ This message was sent from the Don Mario's Lending Solutions website.
 }
 // Test function to debug form issues
 function testForm() {
-  console.log('Testing form functionality...');
-  
-  const firstNameInput = document.getElementById('firstName');
-  const lastNameInput = document.getElementById('lastName');
-  
+  console.log("Testing form functionality...");
+
+  const firstNameInput = document.getElementById("firstName");
+  const lastNameInput = document.getElementById("lastName");
+
   if (firstNameInput) {
-    console.log('firstName input found:', firstNameInput);
-    console.log('firstName disabled:', firstNameInput.disabled);
-    console.log('firstName readonly:', firstNameInput.readOnly);
-    console.log('firstName style pointer-events:', firstNameInput.style.pointerEvents);
-    
+    console.log("firstName input found:", firstNameInput);
+    console.log("firstName disabled:", firstNameInput.disabled);
+    console.log("firstName readonly:", firstNameInput.readOnly);
+    console.log(
+      "firstName style pointer-events:",
+      firstNameInput.style.pointerEvents
+    );
+
     // Try to focus and type
     firstNameInput.focus();
-    firstNameInput.value = 'TEST';
-    console.log('firstName value after setting:', firstNameInput.value);
+    firstNameInput.value = "TEST";
+    console.log("firstName value after setting:", firstNameInput.value);
   } else {
-    console.log('firstName input NOT found');
+    console.log("firstName input NOT found");
   }
-  
+
   if (lastNameInput) {
-    console.log('lastName input found:', lastNameInput);
-    console.log('lastName disabled:', lastNameInput.disabled);
-    console.log('lastName readonly:', lastNameInput.readOnly);
+    console.log("lastName input found:", lastNameInput);
+    console.log("lastName disabled:", lastNameInput.disabled);
+    console.log("lastName readonly:", lastNameInput.readOnly);
   } else {
-    console.log('lastName input NOT found');
+    console.log("lastName input NOT found");
   }
 }
