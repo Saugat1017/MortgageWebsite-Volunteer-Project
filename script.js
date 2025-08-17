@@ -190,32 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Form submission handling
 document.addEventListener("DOMContentLoaded", () => {
-  // Contact form
-  const contactForm = document.querySelector(".contact-form form");
-  if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      showNotification(
-        "Thank you! Your message has been sent successfully.",
-        "success"
-      );
-      contactForm.reset();
-    });
-  }
-
-  // Apply form
-  const applyForm = document.querySelector(".apply-form form");
-  if (applyForm) {
-    applyForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      showNotification(
-        "Application submitted successfully! We'll contact you soon.",
-        "success"
-      );
-      applyForm.reset();
-    });
-  }
-
   // Quick quote form
   const quoteForm = document.querySelector(".quote-form");
   if (quoteForm) {
@@ -517,3 +491,155 @@ const debouncedNavbarScroll = debounce(() => {
 
 window.addEventListener("scroll", debouncedRevealOnScroll);
 window.addEventListener("scroll", debouncedNavbarScroll);
+
+// Email submission functions
+function submitApplication(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  // Collect all form data
+  const applicationData = {
+    firstName:
+      formData.get("firstName") ||
+      form.querySelector('[name="firstName"]').value,
+    lastName:
+      formData.get("lastName") || form.querySelector('[name="lastName"]').value,
+    email: formData.get("email") || form.querySelector('[name="email"]').value,
+    phone: formData.get("phone") || form.querySelector('[name="phone"]').value,
+    ssn: formData.get("ssn") || form.querySelector('[name="ssn"]').value,
+    dob: formData.get("dob") || form.querySelector('[name="dob"]').value,
+    loanType:
+      formData.get("loanType") || form.querySelector('[name="loanType"]').value,
+    propertyType:
+      formData.get("propertyType") ||
+      form.querySelector('[name="propertyType"]').value,
+    homePrice:
+      formData.get("homePrice") ||
+      form.querySelector('[name="homePrice"]').value,
+    downPayment:
+      formData.get("downPayment") ||
+      form.querySelector('[name="downPayment"]').value,
+    loanTerm:
+      formData.get("loanTerm") || form.querySelector('[name="loanTerm"]').value,
+    employer:
+      formData.get("employer") || form.querySelector('[name="employer"]').value,
+    jobTitle:
+      formData.get("jobTitle") || form.querySelector('[name="jobTitle"]').value,
+    annualIncome:
+      formData.get("annualIncome") ||
+      form.querySelector('[name="annualIncome"]').value,
+    yearsEmployed:
+      formData.get("yearsEmployed") ||
+      form.querySelector('[name="yearsEmployed"]').value,
+    additionalInfo:
+      formData.get("additionalInfo") ||
+      form.querySelector('[name="additionalInfo"]').value,
+  };
+
+  // Create email body
+  const emailBody = `
+New Application Submitted
+
+Personal Information:
+- First Name: ${applicationData.firstName}
+- Last Name: ${applicationData.lastName}
+- Email: ${applicationData.email}
+- Phone: ${applicationData.phone}
+- SSN: ${applicationData.ssn}
+- Date of Birth: ${applicationData.dob}
+
+Loan Information:
+- Loan Type: ${applicationData.loanType}
+- Property Type: ${applicationData.propertyType}
+- Home Price: $${applicationData.homePrice}
+- Down Payment: $${applicationData.downPayment}
+- Loan Term: ${applicationData.loanTerm} years
+
+Employment & Income:
+- Employer: ${applicationData.employer}
+- Job Title: ${applicationData.jobTitle}
+- Annual Income: $${applicationData.annualIncome}
+- Years Employed: ${applicationData.yearsEmployed}
+
+Additional Information:
+${applicationData.additionalInfo}
+
+This application was submitted from the Landing Solution website.
+  `;
+
+  // Open email client with pre-filled data
+  const mailtoLink = `mailto:mcadena01@gmail.com?subject=New Application - ${
+    applicationData.firstName
+  } ${applicationData.lastName}&body=${encodeURIComponent(emailBody)}`;
+  window.open(mailtoLink);
+
+  // Show success message
+  showNotification(
+    "Application submitted! Email client opened with your application details.",
+    "success"
+  );
+
+  // Reset form
+  form.reset();
+}
+
+function submitContact(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  // Collect all form data
+  const contactData = {
+    firstName:
+      formData.get("firstName") ||
+      form.querySelector('[name="firstName"]').value,
+    lastName:
+      formData.get("lastName") || form.querySelector('[name="lastName"]').value,
+    email: formData.get("email") || form.querySelector('[name="email"]').value,
+    phone: formData.get("phone") || form.querySelector('[name="phone"]').value,
+    helpType:
+      formData.get("helpType") || form.querySelector('[name="helpType"]').value,
+    contactMethod:
+      formData.get("contactMethod") ||
+      form.querySelector('[name="contactMethod"]').value,
+    message:
+      formData.get("message") || form.querySelector('[name="message"]').value,
+  };
+
+  // Create email body
+  const emailBody = `
+New Contact Message
+
+Contact Information:
+- First Name: ${contactData.firstName}
+- Last Name: ${contactData.lastName}
+- Email: ${contactData.email}
+- Phone: ${contactData.phone}
+
+How can we help: ${contactData.helpType}
+Preferred Contact Method: ${contactData.contactMethod}
+
+Message:
+${contactData.message}
+
+This message was sent from the Landing Solution website.
+  `;
+
+  // Open email client with pre-filled data
+  const mailtoLink = `mailto:mcadena01@gmail.com?subject=New Contact Message - ${
+    contactData.firstName
+  } ${contactData.lastName}&body=${encodeURIComponent(emailBody)}`;
+  window.open(mailtoLink);
+
+  // Show success message
+  showNotification(
+    "Message sent! Email client opened with your message details.",
+    "success"
+  );
+
+  // Reset form
+  form.reset();
+}

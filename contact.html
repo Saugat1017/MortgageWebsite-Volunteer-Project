@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us - Nexa Mortgage</title>
+    <title>Contact Us - Landing Solution</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -143,26 +143,46 @@
               possible.
             </p>
 
-            <form id="contactForm">
+            <form id="contactForm" onsubmit="submitContact(event)">
               <div class="form-row">
                 <div class="form-group">
-                  <input type="text" placeholder="First Name" required />
+                  <input
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    required
+                  />
                 </div>
                 <div class="form-group">
-                  <input type="text" placeholder="Last Name" required />
+                  <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="form-group">
-                <input type="email" placeholder="Email Address" required />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  required
+                />
               </div>
 
               <div class="form-group">
-                <input type="tel" placeholder="Phone Number" required />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                />
               </div>
 
               <div class="form-group">
-                <select required>
+                <select name="helpType" required>
                   <option value="">How can we help you?</option>
                   <option value="purchase">Home Purchase</option>
                   <option value="refinance">Refinancing</option>
@@ -173,7 +193,7 @@
               </div>
 
               <div class="form-group">
-                <select required>
+                <select name="contactMethod" required>
                   <option value="">Preferred Contact Method</option>
                   <option value="phone">Phone Call</option>
                   <option value="email">Email</option>
@@ -183,6 +203,7 @@
 
               <div class="form-group">
                 <textarea
+                  name="message"
                   placeholder="Your Message"
                   rows="4"
                   required
@@ -193,7 +214,7 @@
                 <label class="checkbox-label">
                   <input type="checkbox" required />
                   <span class="checkmark"></span>
-                  I agree to receive communications from Nexa Mortgage
+                  I agree to receive communications from Landing Solution
                 </label>
               </div>
 
@@ -202,45 +223,6 @@
                 Send Message
               </button>
             </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>How long does the mortgage process take?</h3>
-            <p>
-              Typically, the mortgage process takes 30-45 days from application
-              to closing. We work efficiently to get you into your home as
-              quickly as possible.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>What documents do I need to apply?</h3>
-            <p>
-              You'll need proof of income, bank statements, tax returns, and
-              identification. We'll provide a complete checklist during your
-              consultation.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>Do you offer pre-approval?</h3>
-            <p>
-              Yes! We offer free pre-approval services to help you understand
-              your buying power before you start house hunting.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>What are your current rates?</h3>
-            <p>
-              Rates change daily. Contact us for current rates and to see how we
-              can help you secure the best possible terms for your situation.
-            </p>
           </div>
         </div>
       </div>
@@ -256,7 +238,7 @@
             Mortgage
           </p>
           <div class="cta-buttons">
-            <a href="apply.html" class="btn btn-outline">Start Application</a>
+            <a href="apply.html" class="btn btn-outline">Explore Now</a>
             <a href="calculator.html" class="btn btn-primary"
               >Calculate Payment</a
             >
@@ -268,11 +250,18 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
+        <div class="footer-banner">
+          <img src="banner.jpg" alt="Banner" class="footer-banner-img" />
+        </div>
         <div class="footer-content">
           <div class="footer-section">
             <div class="footer-logo">
-              <img src="logo.png" alt="Nexa Mortgage Logo" class="logo-img" />
-              <span>Nexa Mortgage</span>
+              <img
+                src="logo.png"
+                alt="Landing Solution Logo"
+                class="logo-img"
+              />
+              <span>Landing Solution</span>
             </div>
             <p>
               Your trusted partner in home financing. We make the mortgage
@@ -309,7 +298,7 @@
           <div class="footer-section">
             <h3>Contact Info</h3>
             <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-            <p><i class="fas fa-envelope"></i> info@nexamortgage.com</p>
+            <p><i class="fas fa-envelope"></i> mcadena01@gmail.com</p>
             <p>
               <i class="fas fa-map-marker-alt"></i> 3100 W Ray Rd STE 201 Office
               # 209, Chandler AZ 85226
@@ -317,7 +306,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Nexa Mortgage. All rights reserved. | NMLS #1234567</p>
+          <p>&copy; 2024 Landing Solution. All rights reserved.</p>
         </div>
       </div>
     </footer>

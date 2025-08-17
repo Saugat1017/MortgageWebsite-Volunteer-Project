@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apply Now - Nexa Mortgage</title>
+    <title>Explore Now - Landing Solution</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -19,8 +19,8 @@
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-logo">
-          <img src="logo.png" alt="Nexa Mortgage Logo" class="logo-img" />
-          <span>Nexa Mortgage</span>
+          <img src="logo.png" alt="Landing Solution Logo" class="logo-img" />
+          <span>Landing Solution</span>
         </div>
         <ul class="nav-menu">
           <li class="nav-item">
@@ -53,47 +53,11 @@
     <!-- Page Header -->
     <section class="page-header">
       <div class="container">
-        <h1>Start Your Application</h1>
+        <h1>Explore Your Application</h1>
         <p>
           Take the first step towards homeownership with our simple application
           process
         </p>
-      </div>
-    </section>
-
-    <!-- Application Process Section -->
-    <section class="process-section">
-      <div class="container">
-        <h2 class="section-title">How It Works</h2>
-        <div class="process-grid">
-          <div class="process-step">
-            <div class="step-number">1</div>
-            <h3>Complete Application</h3>
-            <p>
-              Fill out our simple online application form with your basic
-              information
-            </p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">2</div>
-            <h3>Document Review</h3>
-            <p>
-              Our team reviews your application and requests necessary documents
-            </p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">3</div>
-            <h3>Pre-Approval</h3>
-            <p>Receive your pre-approval letter within 24-48 hours</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">4</div>
-            <h3>Loan Processing</h3>
-            <p>
-              We process your loan and keep you updated throughout the process
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -108,86 +72,78 @@
               process takes just minutes to complete, and there are no
               application fees.
             </p>
-            <div class="apply-features">
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>No application fees</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>Quick pre-approval</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>Secure application</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>Expert guidance</span>
-              </div>
-              <div class="apply-feature">
-                <i class="fas fa-check"></i>
-                <span>24/7 support</span>
-              </div>
-            </div>
-
-            <div class="apply-info">
-              <h3>What You'll Need</h3>
-              <ul>
-                <li>Social Security Number</li>
-                <li>Driver's License or ID</li>
-                <li>Recent pay stubs (last 30 days)</li>
-                <li>Bank statements (last 2 months)</li>
-                <li>W-2 forms (last 2 years)</li>
-                <li>Tax returns (last 2 years)</li>
-              </ul>
-            </div>
           </div>
 
           <div class="apply-form" data-aos="fade-left">
-            <h3>Start Your Application</h3>
+            <h3>Explore Your Application</h3>
             <p>
               Fill out the form below and we'll contact you within 24 hours to
               discuss your options.
             </p>
 
-            <form id="applicationForm">
+            <form id="applicationForm" onsubmit="submitApplication(event)">
               <div class="form-section">
                 <h4>Personal Information</h4>
                 <div class="form-row">
                   <div class="form-group">
-                    <input type="text" placeholder="First Name" required />
+                    <input
+                      type="text"
+                      name="firstName"
+                      placeholder="First Name"
+                      required
+                    />
                   </div>
                   <div class="form-group">
-                    <input type="text" placeholder="Last Name" required />
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Last Name"
+                      required
+                    />
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <input type="email" placeholder="Email Address" required />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    required
+                  />
                 </div>
 
                 <div class="form-group">
-                  <input type="tel" placeholder="Phone Number" required />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    required
+                  />
                 </div>
 
                 <div class="form-group">
                   <input
                     type="text"
+                    name="ssn"
                     placeholder="Social Security Number"
                     required
                   />
                 </div>
 
                 <div class="form-group">
-                  <input type="date" placeholder="Date of Birth" required />
+                  <input
+                    type="date"
+                    name="dob"
+                    placeholder="Date of Birth"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="form-section">
                 <h4>Loan Information</h4>
                 <div class="form-group">
-                  <select required>
+                  <select name="loanType" required>
                     <option value="">Loan Type</option>
                     <option value="purchase">Purchase</option>
                     <option value="refinance">Refinance</option>
@@ -197,7 +153,7 @@
                 </div>
 
                 <div class="form-group">
-                  <select required>
+                  <select name="propertyType" required>
                     <option value="">Property Type</option>
                     <option value="single-family">Single Family Home</option>
                     <option value="condo">Condominium</option>
@@ -209,6 +165,7 @@
                 <div class="form-group">
                   <input
                     type="number"
+                    name="homePrice"
                     placeholder="Estimated Home Price"
                     required
                   />
@@ -217,13 +174,14 @@
                 <div class="form-group">
                   <input
                     type="number"
+                    name="downPayment"
                     placeholder="Down Payment Amount"
                     required
                   />
                 </div>
 
                 <div class="form-group">
-                  <select required>
+                  <select name="loanTerm" required>
                     <option value="">Loan Term</option>
                     <option value="30">30 Years</option>
                     <option value="20">20 Years</option>
@@ -236,19 +194,39 @@
               <div class="form-section">
                 <h4>Employment & Income</h4>
                 <div class="form-group">
-                  <input type="text" placeholder="Employer Name" required />
+                  <input
+                    type="text"
+                    name="employer"
+                    placeholder="Employer Name"
+                    required
+                  />
                 </div>
 
                 <div class="form-group">
-                  <input type="text" placeholder="Job Title" required />
+                  <input
+                    type="text"
+                    name="jobTitle"
+                    placeholder="Job Title"
+                    required
+                  />
                 </div>
 
                 <div class="form-group">
-                  <input type="number" placeholder="Annual Income" required />
+                  <input
+                    type="number"
+                    name="annualIncome"
+                    placeholder="Annual Income"
+                    required
+                  />
                 </div>
 
                 <div class="form-group">
-                  <input type="number" placeholder="Years Employed" required />
+                  <input
+                    type="number"
+                    name="yearsEmployed"
+                    placeholder="Years Employed"
+                    required
+                  />
                 </div>
               </div>
 
@@ -256,6 +234,7 @@
                 <h4>Additional Information</h4>
                 <div class="form-group">
                   <textarea
+                    name="additionalInfo"
                     placeholder="Tell us about your situation or any questions you have"
                     rows="3"
                   ></textarea>
@@ -265,7 +244,7 @@
                   <label class="checkbox-label">
                     <input type="checkbox" required />
                     <span class="checkmark"></span>
-                    I authorize Nexa Mortgage to pull my credit report
+                    I authorize Landing Solution to pull my credit report
                   </label>
                 </div>
 
@@ -273,7 +252,7 @@
                   <label class="checkbox-label">
                     <input type="checkbox" required />
                     <span class="checkmark"></span>
-                    I agree to receive communications from Nexa Mortgage
+                    I agree to receive communications from Landing Solution
                   </label>
                 </div>
               </div>
@@ -291,7 +270,7 @@
     <!-- Benefits Section -->
     <section class="benefits-section">
       <div class="container">
-        <h2 class="section-title">Why Choose Nexa Mortgage?</h2>
+        <h2 class="section-title">Why Choose Landing Solution?</h2>
         <div class="benefits-grid">
           <div class="benefit-item">
             <div class="benefit-icon">
@@ -349,11 +328,18 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
+        <div class="footer-banner">
+          <img src="banner.jpg" alt="Banner" class="footer-banner-img" />
+        </div>
         <div class="footer-content">
           <div class="footer-section">
             <div class="footer-logo">
-              <img src="logo.png" alt="Nexa Mortgage Logo" class="logo-img" />
-              <span>Nexa Mortgage</span>
+              <img
+                src="logo.png"
+                alt="Landing Solution Logo"
+                class="logo-img"
+              />
+              <span>Landing Solution</span>
             </div>
             <p>
               Your trusted partner in home financing. We make the mortgage
@@ -390,7 +376,7 @@
           <div class="footer-section">
             <h3>Contact Info</h3>
             <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-            <p><i class="fas fa-envelope"></i> info@nexamortgage.com</p>
+            <p><i class="fas fa-envelope"></i> mcadena01@gmail.com</p>
             <p>
               <i class="fas fa-map-marker-alt"></i> 3100 W Ray Rd STE 201 Office
               # 209, Chandler AZ 85226
@@ -398,7 +384,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Nexa Mortgage. All rights reserved. | NMLS #1234567</p>
+          <p>&copy; 2024 Landing Solution. All rights reserved.</p>
         </div>
       </div>
     </footer>
