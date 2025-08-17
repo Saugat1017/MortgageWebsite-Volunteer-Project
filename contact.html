@@ -143,47 +143,78 @@
               possible.
             </p>
 
-            <form id="contactForm" onsubmit="submitContact(event)">
+            <form
+              id="contactForm"
+              onsubmit="submitContact(event)"
+              autocomplete="on"
+              style="pointer-events: auto"
+            >
               <div class="form-row">
                 <div class="form-group">
+                  <label for="firstName">First Name *</label>
                   <input
                     type="text"
+                    id="firstName"
                     name="firstName"
-                    placeholder="First Name"
+                    placeholder="Enter your first name"
                     required
+                    oninput="console.log('Typing in firstName:', this.value)"
+                    style="
+                      pointer-events: auto;
+                      cursor: text;
+                      background: white;
+                      border: 2px solid #e2e8f0;
+                      padding: 1rem;
+                      width: 100%;
+                    "
                   />
                 </div>
                 <div class="form-group">
+                  <label for="lastName">Last Name *</label>
                   <input
                     type="text"
+                    id="lastName"
                     name="lastName"
-                    placeholder="Last Name"
+                    placeholder="Enter your last name"
                     required
+                    style="
+                      pointer-events: auto;
+                      cursor: text;
+                      background: white;
+                      border: 2px solid #e2e8f0;
+                      padding: 1rem;
+                      width: 100%;
+                    "
                   />
                 </div>
               </div>
 
               <div class="form-group">
+                <label for="email">Email Address *</label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
-                  placeholder="Email Address"
+                  placeholder="Enter your email address"
                   required
                 />
               </div>
 
               <div class="form-group">
+                <label for="phone">Phone Number *</label>
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
-                  placeholder="Phone Number"
+                  placeholder="Enter your phone number"
                   required
                 />
               </div>
 
               <div class="form-group">
-                <select name="helpType" required>
-                  <option value="">How can we help you?</option>
+                <label for="helpType">How can we help you? *</label>
+                <select id="helpType" name="helpType" required>
+                  <option value="">Select an option</option>
                   <option value="purchase">Home Purchase</option>
                   <option value="refinance">Refinancing</option>
                   <option value="pre-approval">Pre-Approval</option>
@@ -193,8 +224,9 @@
               </div>
 
               <div class="form-group">
-                <select name="contactMethod" required>
-                  <option value="">Preferred Contact Method</option>
+                <label for="contactMethod">Preferred Contact Method *</label>
+                <select id="contactMethod" name="contactMethod" required>
+                  <option value="">Select your preferred method</option>
                   <option value="phone">Phone Call</option>
                   <option value="email">Email</option>
                   <option value="text">Text Message</option>
@@ -202,9 +234,11 @@
               </div>
 
               <div class="form-group">
+                <label for="message">Your Message *</label>
                 <textarea
+                  id="message"
                   name="message"
-                  placeholder="Your Message"
+                  placeholder="Tell us how we can help you..."
                   rows="4"
                   required
                 ></textarea>
@@ -218,6 +252,20 @@
                 </label>
               </div>
 
+              <button
+                type="button"
+                onclick="testForm()"
+                style="
+                  margin-right: 1rem;
+                  background: #ff0000;
+                  color: white;
+                  padding: 0.5rem 1rem;
+                  border: none;
+                  border-radius: 5px;
+                "
+              >
+                Test Form
+              </button>
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-paper-plane"></i>
                 Send Message
