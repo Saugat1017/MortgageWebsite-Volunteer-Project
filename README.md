@@ -1,4 +1,4 @@
-# Nexa Mortgage Website  (Volunteer Project)
+# Mortgage Website  (Volunteer Project)
 
 A modern, responsive mortgage website built as part of my **volunteer work for a company**.  
 The project showcases professional design, interactive features, and smooth animations to create an engaging and user-friendly mortgage experience.  
