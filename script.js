@@ -570,7 +570,7 @@ This application was submitted from the Don Mario's Lending Solutions website.
   `;
 
   // Open email client with pre-filled data
-  const mailtoLink = `mailto:mcadena@nexamortgge.com?subject=New Application - ${
+  const mailtoLink = `mailto:donmarioslending@gmail.com?subject=New Application - ${
     applicationData.firstName
   } ${applicationData.lastName}&body=${encodeURIComponent(emailBody)}`;
   window.open(mailtoLink);
@@ -629,7 +629,7 @@ This message was sent from the Don Mario's Lending Solutions website.
   `;
 
   // Open email client with pre-filled data
-  const mailtoLink = `mailto:mcadena@nexamortgge.com?subject=New Contact Message - ${
+  const mailtoLink = `mailto:donmarioslending@gmail.com?subject=New Contact Message - ${
     contactData.firstName
   } ${contactData.lastName}&body=${encodeURIComponent(emailBody)}`;
   window.open(mailtoLink);
