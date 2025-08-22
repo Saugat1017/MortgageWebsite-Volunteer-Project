@@ -162,6 +162,47 @@ body {
   display: none !important;
 }
 
+/* NMLS Section Styles */
+.nmls-section {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  padding: 2rem 0;
+  text-align: center;
+  border-top: 1px solid #e2e8f0;
+}
+
+.nmls-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nmls-access-btn {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+  border: 2px solid transparent;
+}
+
+.nmls-access-btn:hover {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+  border-color: rgba(30, 64, 175, 0.2);
+}
+
+.nmls-access-btn i {
+  font-size: 1.2rem;
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -1480,6 +1521,135 @@ textarea:focus {
   line-height: 1.6;
 }
 
+/* Partners Section Styles */
+.partners-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.partner-member {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.partner-member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.partner-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1.5rem;
+  border: 4px solid #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.partner-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.partner-photo:hover img {
+  transform: scale(1.05);
+}
+
+.partner-nmls {
+  margin-top: 15px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 3px 12px rgba(30, 64, 175, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.partner-nmls:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(30, 64, 175, 0.4);
+}
+
+.partner-member h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.partner-title {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.partner-bio {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.partner-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.social-link.facebook {
+  background: linear-gradient(135deg, #1877f2, #42a5f5);
+  color: white;
+}
+
+.social-link.facebook:hover {
+  background: linear-gradient(135deg, #166fe5, #1976d2);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+}
+
+.social-link.instagram {
+  background: linear-gradient(135deg, #e1306c, #f56040, #fcaf45);
+  color: white;
+}
+
+.social-link.instagram:hover {
+  background: linear-gradient(135deg, #d62d60, #e91e63, #ff9800);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+}
+
 /* Awards Section Styles */
 .awards-section {
   padding: 5rem 0;
@@ -2246,6 +2416,25 @@ textarea:focus {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
+.nmls-number {
+  margin-top: 15px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  font-weight: 800;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.nmls-number:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+}
+
 .owner-info h2 {
   font-size: 2.5rem;
   font-weight: 700;
@@ -2375,7 +2564,7 @@ textarea:focus {
 
 .footer-banner-container {
   width: 100%;
-  height: 450px;
+  height: 550px;
   overflow: hidden;
 }
 
