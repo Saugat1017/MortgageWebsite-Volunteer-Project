@@ -314,18 +314,21 @@ body {
 }
 
 .btn-outline {
-  background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  background: rgba(255, 255, 255, 0.1); /* subtle fill so it's visible */
+  color: #ffffff;  /* white text */
+  border: 2px solid #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
   background: var(--gradient-primary);
-  color: white;
+  color: #ffffff;
   border-color: transparent;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
+
 
 .btn-small {
   padding: 0.75rem 1.5rem;
