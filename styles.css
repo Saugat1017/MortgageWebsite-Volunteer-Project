@@ -314,20 +314,22 @@ body {
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.1); /* subtle fill so it's visible */
-  color: #ffffff;  /* white text */
-  border: 2px solid #ffffff;
+  background: transparent;
+  color: #ffffff; /* make text visible */
+  border: 2px solid #3b82f6; /* blue outline */
   font-weight: 600;
   transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); /* subtle glow */
 }
 
 .btn-outline:hover {
-  background: var(--gradient-primary);
+  background: #3b82f6;
   color: #ffffff;
   border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
 }
+
 
 
 .btn-small {
