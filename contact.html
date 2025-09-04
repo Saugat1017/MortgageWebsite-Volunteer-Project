@@ -13,6 +13,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        // Replace with your EmailJS public key
+        emailjs.init("YOUR_PUBLIC_KEY");
+      })();
+    </script>
   </head>
   <body>
     <!-- Navigation -->
@@ -100,9 +110,6 @@
               <div>
                 <h3>Email</h3>
                 <p>donmarioslending@gmail.com</p>
-                <p class="contact-note">
-                  I typically respond within 2 hours during business hours
-                </p>
               </div>
             </div>
 
@@ -114,34 +121,6 @@
                 <h3>Office Address</h3>
                 <p>5559 S Sossaman Rd Bldg #1<br />Ste #101, Mesa, AZ 85212</p>
                 <p class="contact-note">Free parking available on-site</p>
-              </div>
-              <div class="contact-map">
-                <div class="mini-map">
-                  <i class="fas fa-map-marked-alt"></i>
-                  <a
-                    href="https://maps.google.com/maps?q=5559+S+Sossaman+Rd+Bldg+1+Ste+101+Mesa+AZ+85212"
-                    target="_blank"
-                    class="mini-map-link"
-                  >
-                    <i class="fas fa-external-link-alt"></i>
-                    View Map
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div>
-                <h3>Business Hours</h3>
-                <p><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
-                <p><strong>Saturday:</strong> 9:00 AM - 2:00 PM</p>
-                <p><strong>Sunday:</strong> Closed</p>
-                <p class="contact-note">
-                  After-hours appointments available by request
-                </p>
               </div>
             </div>
 
@@ -298,20 +277,20 @@
     <section class="cta-section">
       <div class="container">
         <div class="cta-content">
-          <h2>Ready to Get Started?</h2>
+          <h2>Ready to Start Your Digital Journey?</h2>
           <p>
-            Contact me today to begin your homeownership journey with Don
-            Mario's Lending Solutions.
+            Join thousands of businesses who have achieved their dream of
+            digital success with Don Mario's Lending Solutions
           </p>
           <div class="cta-buttons">
+            <a href="loan-programs.html" class="btn btn-primary"
+              >Explore Programs</a
+            >
             <a
               href="https://prod.lendingpad.com/nexa/pos#/?loid=c9df7c38-323c-4589-ad72-78527a46e6d1"
-              class="btn btn-outline"
+              class="btn btn-primary"
               target="_blank"
               >Explore Now</a
-            >
-            <a href="calculator.html" class="btn btn-primary"
-              >Calculate Payment</a
             >
           </div>
         </div>

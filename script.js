@@ -48,19 +48,27 @@ function calculateMortgage() {
   );
   const loanTerm = parseInt(document.getElementById("loanTerm").value);
 
-  // Validate inputs
+  // Validate inputs silently - if invalid, just return without showing errors
   if (
     isNaN(homePrice) ||
     isNaN(downPayment) ||
     isNaN(interestRate) ||
-    isNaN(loanTerm)
+    isNaN(loanTerm) ||
+    homePrice <= 0 ||
+    downPayment <= 0 ||
+    downPayment >= homePrice ||
+    interestRate <= 0
   ) {
-    alert("Please enter valid numbers for all fields.");
     return;
   }
 
-  if (downPayment >= homePrice) {
-    alert("Down payment cannot be greater than or equal to home price.");
+  // Validate property tax and insurance
+  const annualPropertyTax =
+    parseFloat(document.getElementById("propertyTax").value) || 0;
+  const annualInsurance =
+    parseFloat(document.getElementById("insurance").value) || 0;
+
+  if (annualPropertyTax < 0 || annualInsurance < 0) {
     return;
   }
 
@@ -85,23 +93,23 @@ function calculateMortgage() {
       (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
   }
 
-  // Calculate total cost
-  const totalCost = monthlyPayment * numberOfPayments;
+  // Calculate monthly property tax and insurance
+  const propertyTax = annualPropertyTax / 12;
+  const insurance = annualInsurance / 12;
 
-  // Estimate property tax and insurance (simplified)
-  const propertyTax = (homePrice * 0.01) / 12; // 1% annual property tax
-  const insurance = (homePrice * 0.005) / 12; // 0.5% annual insurance
-
-  // Total monthly payment including tax and insurance
+  // Calculate total cost over the loan term (all monthly payments combined)
   const totalMonthlyPayment = monthlyPayment + propertyTax + insurance;
+  const totalCost = totalMonthlyPayment * numberOfPayments;
 
   // Update display with animation
   updateCalculatorResults(
     monthlyPayment,
     propertyTax,
     insurance,
-    totalMonthlyPayment,
-    totalCost
+    monthlyPayment + propertyTax + insurance,
+    totalCost,
+    homePrice,
+    downPayment
   );
 }
 
@@ -110,13 +118,15 @@ function updateCalculatorResults(
   propertyTax,
   insurance,
   totalMonthly,
-  totalCost
+  totalCost,
+  homePrice,
+  downPayment
 ) {
   // Animate the payment amount
   const monthlyPaymentElement = document.getElementById("monthlyPayment");
   const principalInterestElement = document.getElementById("principalInterest");
-  const propertyTaxElement = document.getElementById("propertyTax");
-  const insuranceElement = document.getElementById("insurance");
+  const propertyTaxElement = document.getElementById("propertyTaxResult");
+  const insuranceElement = document.getElementById("insuranceResult");
   const totalCostElement = document.getElementById("totalCost");
 
   // Add animation class
@@ -124,11 +134,27 @@ function updateCalculatorResults(
   monthlyPaymentElement.style.transition = "transform 0.3s ease";
 
   // Update values with formatting
-  monthlyPaymentElement.textContent = formatCurrency(totalMonthly);
   principalInterestElement.textContent = formatCurrency(principalInterest);
   propertyTaxElement.textContent = formatCurrency(propertyTax);
   insuranceElement.textContent = formatCurrency(insurance);
+
+  // Update monthly payment (sum of all components)
+  monthlyPaymentElement.textContent = formatCurrency(
+    principalInterest + propertyTax + insurance
+  );
+
+  // Update total cost
   totalCostElement.textContent = formatCurrency(totalCost);
+
+  // Update loan summary
+  document.getElementById("loanAmount").textContent = formatCurrency(
+    homePrice - downPayment
+  );
+  document.getElementById("downPaymentPercent").textContent =
+    Math.round((downPayment / homePrice) * 100) + "%";
+  document.getElementById("totalInterest").textContent = formatCurrency(
+    totalCost - (homePrice - downPayment)
+  );
 
   // Remove animation class
   setTimeout(() => {
@@ -158,6 +184,161 @@ document
 document
   .getElementById("loanTerm")
   .addEventListener("change", calculateMortgage);
+document
+  .getElementById("propertyTax")
+  .addEventListener("input", calculateMortgage);
+document
+  .getElementById("insurance")
+  .addEventListener("input", calculateMortgage);
+
+// Calculate initial values on page load
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("homePrice")) {
+    calculateMortgage();
+  }
+
+  // Update mortgage rates
+  updateMortgageRates();
+});
+
+// Function to fetch and update mortgage rates from FRED API
+async function updateMortgageRates() {
+  try {
+    // FRED API endpoints for mortgage rates
+    const rateEndpoints = {
+      "30-yr-fixed": "MORTGAGE30US",
+      "15-yr-fixed": "MORTGAGE15US",
+      "30-yr-fha": "MORTGAGE30US", // Using 30-yr as base for FHA
+      "30-yr-va": "MORTGAGE30US", // Using 30-yr as base for VA
+      "30-yr-jumbo": "MORTGAGE30US", // Using 30-yr as base for Jumbo
+    };
+
+    // Update the date
+    const today = new Date();
+    const dateString = today.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    const dateElement = document.querySelector(".rates-date");
+    if (dateElement) {
+      dateElement.textContent = `Updated ${dateString}`;
+    }
+
+    // Fetch rates from FRED API (Federal Reserve Economic Data)
+    const apiKey = "f22bba4838165111bfce44bc4b748836"; // Your FRED API key
+
+    // For now, we'll use fallback rates while you get your API key
+    const fallbackRates = {
+      "30-yr-fixed": 6.484,
+      "15-yr-fixed": 5.875,
+      "30-yr-fha": 6.249,
+      "30-yr-va": 6.037,
+      "30-yr-jumbo": 6.678,
+    };
+
+    // Try to fetch real rates (when API key is available)
+    if (apiKey !== "YOUR_FRED_API_KEY") {
+      const promises = Object.entries(rateEndpoints).map(
+        async ([rateType, endpoint]) => {
+          try {
+            const response = await fetch(
+              `https://api.stlouisfed.org/fred/series/observations?series_id=${endpoint}&api_key=${apiKey}&file_type=json&limit=1&sort_order=desc`
+            );
+            const data = await response.json();
+
+            if (data.observations && data.observations.length > 0) {
+              const latestRate = parseFloat(data.observations[0].value);
+              return { rateType, rate: latestRate };
+            }
+          } catch (error) {
+            console.log(`Error fetching ${rateType}:`, error);
+          }
+          return { rateType, rate: fallbackRates[rateType] };
+        }
+      );
+
+      const results = await Promise.all(promises);
+
+      // Update the UI with fetched rates
+      results.forEach(({ rateType, rate }) => {
+        updateRateDisplay(rateType, rate);
+      });
+    } else {
+      // Use fallback rates when no API key
+      Object.entries(fallbackRates).forEach(([rateType, rate]) => {
+        updateRateDisplay(rateType, rate);
+      });
+    }
+  } catch (error) {
+    console.error("Error updating mortgage rates:", error);
+
+    // Use fallback rates on error
+    const fallbackRates = {
+      "30-yr-fixed": 6.484,
+      "15-yr-fixed": 5.875,
+      "30-yr-fha": 6.249,
+      "30-yr-va": 6.037,
+      "30-yr-jumbo": 6.678,
+    };
+
+    Object.entries(fallbackRates).forEach(([rateType, rate]) => {
+      updateRateDisplay(rateType, rate);
+    });
+  }
+}
+
+// Helper function to update rate display in UI
+function updateRateDisplay(rateType, newRate) {
+  const rateElements = document.querySelectorAll(".rate-item");
+
+  rateElements.forEach((element) => {
+    const label = element
+      .querySelector(".rate-label")
+      .textContent.toLowerCase();
+
+    // Match rate type to UI element
+    let matches = false;
+    if (rateType === "30-yr-fixed" && label.includes("30-yr. fixed"))
+      matches = true;
+    if (rateType === "15-yr-fixed" && label.includes("15-yr. fixed"))
+      matches = true;
+    if (rateType === "30-yr-fha" && label.includes("30-yr. fha"))
+      matches = true;
+    if (rateType === "30-yr-va" && label.includes("30-yr. va")) matches = true;
+    if (rateType === "30-yr-jumbo" && label.includes("30-yr. jumbo"))
+      matches = true;
+
+    if (matches) {
+      const rateValueElement = element.querySelector(".rate-value");
+      const rateChangeElement = element.querySelector(".rate-change");
+
+      if (rateValueElement) {
+        const oldRate = parseFloat(
+          rateValueElement.textContent.replace("%", "")
+        );
+        const change = newRate - oldRate;
+
+        // Update rate value
+        rateValueElement.textContent = `${newRate.toFixed(3)}%`;
+
+        // Update change indicator
+        if (rateChangeElement && Math.abs(change) > 0.001) {
+          rateChangeElement.textContent =
+            change > 0 ? `+${change.toFixed(3)}` : change.toFixed(3);
+          rateChangeElement.className = `rate-change ${
+            change > 0 ? "up" : "down"
+          }`;
+        }
+      }
+    }
+  });
+}
+
+// Set up automatic rate updates every hour
+setInterval(updateMortgageRates, 3600000); // Update every hour
 
 // Intersection Observer for scroll animations
 const observerOptions = {
@@ -589,57 +770,50 @@ function submitContact(event) {
   event.preventDefault();
 
   const form = event.target;
-  const formData = new FormData(form);
+  const submitButton = form.querySelector('button[type="submit"]');
 
-  // Collect all form data
-  const contactData = {
-    firstName:
-      formData.get("firstName") ||
-      form.querySelector('[name="firstName"]').value,
-    lastName:
-      formData.get("lastName") || form.querySelector('[name="lastName"]').value,
-    email: formData.get("email") || form.querySelector('[name="email"]').value,
-    phone: formData.get("phone") || form.querySelector('[name="phone"]').value,
-    helpType:
-      formData.get("helpType") || form.querySelector('[name="helpType"]').value,
-    contactMethod:
-      formData.get("contactMethod") ||
-      form.querySelector('[name="contactMethod"]').value,
-    message:
-      formData.get("message") || form.querySelector('[name="message"]').value,
+  // Disable submit button and show loading state
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  // Prepare template parameters
+  const templateParams = {
+    firstName: form.querySelector("#firstName").value,
+    lastName: form.querySelector("#lastName").value,
+    email: form.querySelector("#email").value,
+    phone: form.querySelector("#phone").value,
+    helpType: form.querySelector("#helpType").value,
+    contactMethod: form.querySelector("#contactMethod").value,
+    message: form.querySelector("#message").value,
+    to_email: "donmarioslending@gmail.com",
   };
 
-  // Create email body
-  const emailBody = `
-New Contact Message
+  // Send email using EmailJS
+  emailjs
+    .send("default_service", "YOUR_TEMPLATE_ID", templateParams)
+    .then(
+      function (response) {
+        // Show success message
+        showNotification(
+          "Message sent successfully! We'll get back to you soon.",
+          "success"
+        );
 
-Contact Information:
-- First Name: ${contactData.firstName}
-- Last Name: ${contactData.lastName}
-- Email: ${contactData.email}
-- Phone: ${contactData.phone}
-
-How can I help: ${contactData.helpType}
-Preferred Contact Method: ${contactData.contactMethod}
-
-Message:
-${contactData.message}
-
-This message was sent from the Don Mario's Lending Solutions website.
-  `;
-
-  // Open email client with pre-filled data
-  const mailtoLink = `mailto:donmarioslending@gmail.com?subject=New Contact Message - ${
-    contactData.firstName
-  } ${contactData.lastName}&body=${encodeURIComponent(emailBody)}`;
-  window.open(mailtoLink);
-
-  // Show success message
-  showNotification(
-    "Message sent! Email client opened with your message details.",
-    "success"
-  );
-
-  // Reset form
-  form.reset();
+        // Reset form
+        form.reset();
+      },
+      function (error) {
+        // Show error message
+        showNotification(
+          "Sorry, there was an error sending your message. Please try again.",
+          "error"
+        );
+      }
+    )
+    .finally(function () {
+      // Re-enable submit button and restore original text
+      submitButton.disabled = false;
+      submitButton.innerHTML =
+        '<i class="fas fa-paper-plane"></i> Send Message';
+    });
 }
