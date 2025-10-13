@@ -766,7 +766,7 @@ This application was submitted from the Don Mario's Lending Solutions website.
   form.reset();
 }
 
-function submitContact(event) {
+async function submitContact(event) {
   event.preventDefault();
 
   const form = event.target;
@@ -776,44 +776,526 @@ function submitContact(event) {
   submitButton.disabled = true;
   submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-  // Prepare template parameters
-  const templateParams = {
-    firstName: form.querySelector("#firstName").value,
-    lastName: form.querySelector("#lastName").value,
-    email: form.querySelector("#email").value,
-    phone: form.querySelector("#phone").value,
-    helpType: form.querySelector("#helpType").value,
-    contactMethod: form.querySelector("#contactMethod").value,
-    message: form.querySelector("#message").value,
+  // Prepare email parameters for EmailJS
+  const emailParams = {
     to_email: "donmarioslending@gmail.com",
+    user_name: `${form.querySelector("#firstName").value} ${
+      form.querySelector("#lastName").value
+    }`,
+    user_email: form.querySelector("#email").value,
+    user_phone: form.querySelector("#phone").value,
+    help_type: form.querySelector("#helpType").value,
+    contact_method: form.querySelector("#contactMethod").value,
+    user_message: form.querySelector("#message").value,
+    timestamp: new Date().toLocaleString(),
   };
 
-  // Send email using EmailJS
-  emailjs
-    .send("default_service", "YOUR_TEMPLATE_ID", templateParams)
-    .then(
-      function (response) {
-        // Show success message
-        showNotification(
-          "Message sent successfully! We'll get back to you soon.",
-          "success"
-        );
+  try {
+    // Send email using EmailJS
+    await emailjs.send("service_da9g455", "template_5pxxy79", emailParams);
 
-        // Reset form
-        form.reset();
-      },
-      function (error) {
-        // Show error message
-        showNotification(
-          "Sorry, there was an error sending your message. Please try again.",
-          "error"
-        );
+    console.log("Contact email sent successfully!");
+
+    // Show success message
+    showNotification(
+      "Message sent successfully! We'll get back to you soon.",
+      "success"
+    );
+
+    // Reset form
+    form.reset();
+  } catch (error) {
+    console.error("Error sending contact email:", error);
+
+    // Show error message
+    showNotification(
+      "Sorry, there was an error sending your message. Please try again.",
+      "error"
+    );
+  } finally {
+    // Re-enable submit button and restore original text
+    submitButton.disabled = false;
+    submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+  }
+}
+
+// Calendar Booking System
+window.selectedDate = null;
+window.selectedTime = null;
+window.currentMonthOffset = 0; // Changed from week to month
+
+// Business hours configuration (9 AM - 5 PM)
+window.BUSINESS_HOURS = {
+  start: 9, // 9 AM
+  end: 17, // 5 PM (last slot starts at 4 PM)
+};
+
+// Initialize calendar on page load
+function initializeCalendar() {
+  const calendarDays = document.getElementById("calendarDays");
+  if (calendarDays) {
+    console.log("Initializing calendar...");
+    renderCalendar();
+    setupCalendarNavigation();
+  }
+}
+
+// Wait for DOM to be fully ready before initializing
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(initializeCalendar, 100);
+  });
+} else {
+  // DOM is already ready, wait a moment then initialize
+  setTimeout(initializeCalendar, 100);
+}
+
+function renderCalendar() {
+  const calendarDays = document.getElementById("calendarDays");
+  const calendarTitle = document.getElementById("calendarTitle");
+
+  if (!calendarDays || !calendarTitle) {
+    console.error("Calendar elements not found!");
+    return;
+  }
+
+  console.log("Rendering calendar...");
+  calendarDays.innerHTML = "";
+
+  // Ensure currentMonthOffset is initialized
+  if (
+    typeof window.currentMonthOffset === "undefined" ||
+    window.currentMonthOffset === null
+  ) {
+    window.currentMonthOffset = 0;
+    console.log("currentMonthOffset was undefined, setting to 0");
+  }
+
+  // Get today's date
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to midnight
+
+  console.log("Today:", today);
+  console.log("Current month offset:", window.currentMonthOffset);
+
+  // Calculate the month to display
+  const displayMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + window.currentMonthOffset,
+    1
+  );
+
+  // Get month name and year for title
+  const monthName = displayMonth.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+  calendarTitle.textContent = monthName;
+
+  // Get first day of the month and number of days
+  const firstDay = new Date(
+    displayMonth.getFullYear(),
+    displayMonth.getMonth(),
+    1
+  );
+  const lastDay = new Date(
+    displayMonth.getFullYear(),
+    displayMonth.getMonth() + 1,
+    0
+  );
+  const daysInMonth = lastDay.getDate();
+
+  console.log("Displaying month:", monthName);
+  console.log("Days in month:", daysInMonth);
+
+  // Render all days in the month
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(
+      displayMonth.getFullYear(),
+      displayMonth.getMonth(),
+      day
+    );
+    console.log("Creating day", day, ":", date);
+
+    const dayElement = document.createElement("div");
+    dayElement.className = "calendar-day";
+
+    // Check if date is in the past
+    const isPast = date < today;
+
+    if (isPast) {
+      dayElement.classList.add("disabled");
+    } else {
+      dayElement.addEventListener("click", () => selectDate(date, dayElement));
+    }
+
+    // Check if this is the selected date
+    if (window.selectedDate && isSameDay(date, window.selectedDate)) {
+      dayElement.classList.add("selected");
+    }
+
+    dayElement.innerHTML = `
+      <span class="day-name">${getDayName(date)}</span>
+      <span class="day-number">${date.getDate()}</span>
+    `;
+
+    calendarDays.appendChild(dayElement);
+  }
+
+  // Update navigation buttons
+  const prevBtn = document.getElementById("prevWeek");
+  const nextBtn = document.getElementById("nextWeek");
+
+  if (prevBtn && nextBtn) {
+    // Disable prev if we're at the current month
+    prevBtn.disabled = window.currentMonthOffset <= 0;
+
+    // Allow navigation to future months (up to 12 months ahead)
+    nextBtn.disabled = window.currentMonthOffset >= 11;
+  }
+}
+
+function setupCalendarNavigation() {
+  const prevBtn = document.getElementById("prevWeek");
+  const nextBtn = document.getElementById("nextWeek");
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (window.currentMonthOffset > 0) {
+        window.currentMonthOffset--;
+        renderCalendar();
       }
-    )
-    .finally(function () {
-      // Re-enable submit button and restore original text
-      submitButton.disabled = false;
-      submitButton.innerHTML =
-        '<i class="fas fa-paper-plane"></i> Send Message';
     });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      // Allow up to 12 months ahead
+      if (window.currentMonthOffset < 11) {
+        window.currentMonthOffset++;
+        renderCalendar();
+      }
+    });
+  }
+}
+
+function selectDate(date, element) {
+  window.selectedDate = date;
+  window.selectedTime = null;
+
+  // Update calendar day selection
+  document.querySelectorAll(".calendar-day").forEach((day) => {
+    day.classList.remove("selected");
+  });
+  element.classList.add("selected");
+
+  // Update selected date text
+  const selectedDateText = document.getElementById("selectedDateText");
+  if (selectedDateText) {
+    selectedDateText.textContent = `Available slots for ${formatDateLong(
+      date
+    )}`;
+  }
+
+  // Render time slots
+  renderTimeSlots(date);
+
+  // Hide booking form
+  const bookingFormWrapper = document.getElementById("bookingFormWrapper");
+  if (bookingFormWrapper) {
+    bookingFormWrapper.style.display = "none";
+  }
+}
+
+async function renderTimeSlots(date) {
+  const timeSlotsGrid = document.getElementById("timeSlotsGrid");
+  if (!timeSlotsGrid) return;
+
+  timeSlotsGrid.innerHTML = "<p>Loading available slots...</p>";
+
+  // Ensure BUSINESS_HOURS is initialized
+  if (!window.BUSINESS_HOURS) {
+    window.BUSINESS_HOURS = {
+      start: 9,
+      end: 17,
+    };
+  }
+
+  // Format date for database query
+  const dateString = formatDateForDB(date);
+
+  // Check Firebase for existing bookings on this date
+  let bookedSlots = [];
+  try {
+    if (typeof firebase !== "undefined" && firebase.firestore) {
+      const bookingsRef = firebase.firestore().collection("bookings");
+      const snapshot = await bookingsRef.where("date", "==", dateString).get();
+
+      bookedSlots = snapshot.docs.map((doc) => doc.data().time);
+      console.log("Booked slots for", dateString, ":", bookedSlots);
+    }
+  } catch (error) {
+    console.error("Error checking bookings:", error);
+  }
+
+  timeSlotsGrid.innerHTML = "";
+
+  // Generate time slots from 9 AM to 5 PM (last slot at 4 PM for 1-hour slots)
+  for (
+    let hour = window.BUSINESS_HOURS.start;
+    hour < window.BUSINESS_HOURS.end;
+    hour++
+  ) {
+    const slotElement = document.createElement("div");
+    slotElement.className = "time-slot";
+
+    const timeStart = formatTime(hour, 0);
+    const timeEnd = formatTime(hour + 1, 0);
+    const displayTime = `${timeStart} - ${timeEnd}`;
+
+    // Check if this slot is already booked
+    const isBooked = bookedSlots.includes(displayTime);
+
+    if (isBooked) {
+      slotElement.classList.add("disabled");
+      slotElement.innerHTML = `
+        <div class="time-slot-time">
+          <i class="fas fa-lock"></i>
+          ${displayTime}
+          <span style="font-size: 0.8rem; display: block; margin-top: 0.25rem;">Booked</span>
+        </div>
+      `;
+    } else {
+      slotElement.innerHTML = `
+        <div class="time-slot-time">
+          <i class="fas fa-clock"></i>
+          ${displayTime}
+        </div>
+      `;
+      slotElement.addEventListener("click", () =>
+        selectTimeSlot(date, displayTime, slotElement)
+      );
+    }
+
+    timeSlotsGrid.appendChild(slotElement);
+  }
+
+  // Show message if all slots are booked
+  if (
+    bookedSlots.length ===
+    window.BUSINESS_HOURS.end - window.BUSINESS_HOURS.start
+  ) {
+    timeSlotsGrid.innerHTML =
+      "<p style='text-align: center; color: #64748b; padding: 2rem;'><i class='fas fa-calendar-times' style='font-size: 2rem; display: block; margin-bottom: 1rem;'></i>All time slots are booked for this day.<br>Please select another date.</p>";
+  }
+}
+
+function selectTimeSlot(date, time, element) {
+  window.selectedTime = time;
+
+  // Update time slot selection
+  document.querySelectorAll(".time-slot").forEach((slot) => {
+    slot.classList.remove("selected");
+  });
+  element.classList.add("selected");
+
+  // Show booking form
+  showBookingForm(date, time);
+}
+
+function showBookingForm(date, time) {
+  const bookingFormWrapper = document.getElementById("bookingFormWrapper");
+  const confirmDate = document.getElementById("confirmDate");
+  const confirmTime = document.getElementById("confirmTime");
+
+  if (bookingFormWrapper && confirmDate && confirmTime) {
+    confirmDate.textContent = formatDateLong(date);
+    confirmTime.textContent = time;
+    bookingFormWrapper.style.display = "block";
+
+    // Smooth scroll to form
+    bookingFormWrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function cancelBooking() {
+  const bookingFormWrapper = document.getElementById("bookingFormWrapper");
+  if (bookingFormWrapper) {
+    bookingFormWrapper.style.display = "none";
+  }
+
+  // Clear selections
+  document.querySelectorAll(".time-slot").forEach((slot) => {
+    slot.classList.remove("selected");
+  });
+
+  window.selectedTime = null;
+
+  // Reset form
+  const bookingForm = document.getElementById("bookingForm");
+  if (bookingForm) {
+    bookingForm.reset();
+  }
+}
+
+async function submitBooking(event) {
+  event.preventDefault();
+
+  if (!window.selectedDate || !window.selectedTime) {
+    showNotification("Please select a date and time slot.", "error");
+    return;
+  }
+
+  const form = event.target;
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  // Disable submit button and show loading state
+  submitButton.disabled = true;
+  submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
+
+  // Collect form data
+  const bookingData = {
+    name: form.querySelector("#bookingName").value,
+    email: form.querySelector("#bookingEmail").value,
+    phone: form.querySelector("#bookingPhone").value,
+    reason: form.querySelector("#bookingReason").value,
+    notes: form.querySelector("#bookingNotes").value,
+    date: formatDateLong(window.selectedDate),
+    dateDB: formatDateForDB(window.selectedDate),
+    time: window.selectedTime,
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    // Save booking to Firebase
+    if (typeof firebase !== "undefined" && firebase.firestore) {
+      await firebase.firestore().collection("bookings").add({
+        name: bookingData.name,
+        email: bookingData.email,
+        phone: bookingData.phone,
+        reason: bookingData.reason,
+        notes: bookingData.notes,
+        date: bookingData.dateDB,
+        time: bookingData.time,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        status: "pending",
+      });
+
+      console.log("Booking saved to Firebase successfully!");
+    }
+
+    // Send email notification via EmailJS
+    const emailParams = {
+      to_email: "donmarioslending@gmail.com",
+      client_name: bookingData.name,
+      client_email: bookingData.email,
+      client_phone: bookingData.phone,
+      booking_date: bookingData.date,
+      booking_time: bookingData.time,
+      booking_reason: bookingData.reason,
+      booking_notes: bookingData.notes || "None provided",
+      timestamp: new Date().toLocaleString(),
+    };
+
+    // Send email using EmailJS
+    await emailjs.send("service_da9g455", "template_jb47jus", emailParams);
+
+    console.log("Email sent successfully!");
+
+    // Show success notification
+    showNotification(
+      `Booking confirmed for ${bookingData.date} at ${window.selectedTime}! You'll receive a confirmation email shortly.`,
+      "success"
+    );
+  } catch (error) {
+    console.error("Error processing booking:", error);
+    showNotification("Error processing booking. Please try again.", "error");
+    submitButton.disabled = false;
+    submitButton.innerHTML = '<i class="fas fa-check"></i> Confirm Booking';
+    return;
+  }
+
+  // Reset everything
+  form.reset();
+  const bookingFormWrapper = document.getElementById("bookingFormWrapper");
+  if (bookingFormWrapper) {
+    bookingFormWrapper.style.display = "none";
+  }
+
+  // Clear selections
+  window.selectedDate = null;
+  window.selectedTime = null;
+  document.querySelectorAll(".calendar-day.selected").forEach((day) => {
+    day.classList.remove("selected");
+  });
+  document.querySelectorAll(".time-slot.selected").forEach((slot) => {
+    slot.classList.remove("selected");
+  });
+
+  // Reset time slots
+  const timeSlotsGrid = document.getElementById("timeSlotsGrid");
+  if (timeSlotsGrid) {
+    timeSlotsGrid.innerHTML = "";
+  }
+
+  const selectedDateText = document.getElementById("selectedDateText");
+  if (selectedDateText) {
+    selectedDateText.textContent = "Select a date to see available time slots";
+  }
+
+  // Re-enable submit button
+  submitButton.disabled = false;
+  submitButton.innerHTML = '<i class="fas fa-check"></i> Confirm Booking';
+}
+
+// Helper functions
+function getDayName(date) {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+
+function formatTime(hour, minute) {
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+  const displayMinute = minute.toString().padStart(2, "0");
+  return `${displayHour}:${displayMinute} ${period}`;
+}
+
+function formatDateLong(date) {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return date.toLocaleDateString("en-US", options);
+}
+
+function formatDateRange(startDate, endDate) {
+  const startMonth = startDate.toLocaleDateString("en-US", { month: "short" });
+  const endMonth = endDate.toLocaleDateString("en-US", { month: "short" });
+  const startDay = startDate.getDate();
+  const endDay = endDate.getDate();
+
+  if (startMonth === endMonth) {
+    return `${startMonth} ${startDay} - ${endDay}`;
+  } else {
+    return `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
+  }
+}
+
+function isSameDay(date1, date2) {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
+function formatDateForDB(date) {
+  // Format date as YYYY-MM-DD for database consistency
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }

@@ -13,14 +13,39 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyBRl1A2iVDu-qOYrCp_JKvs1ugg0mkzI7g",
+        authDomain: "database-for-motrgage-website.firebaseapp.com",
+        projectId: "database-for-motrgage-website",
+        storageBucket: "database-for-motrgage-website.firebasestorage.app",
+        messagingSenderId: "1026353803753",
+        appId: "1:1026353803753:web:d7a903d92c558cb82f9b78",
+        measurementId: "G-W7ZGZ51L44",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      console.log("Firebase initialized successfully!");
+    </script>
+
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
     ></script>
     <script type="text/javascript">
       (function () {
-        // Replace with your EmailJS public key
-        emailjs.init("YOUR_PUBLIC_KEY");
+        // Initialize EmailJS with your public key
+        emailjs.init("FLrFadmOWQOdbHbeX");
+        console.log("EmailJS initialized successfully!");
       })();
     </script>
   </head>
@@ -273,6 +298,148 @@
       </div>
     </section>
 
+    <!-- Calendar Booking Section -->
+    <section class="calendar-booking-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Book a Consultation</h2>
+          <p class="section-subtitle">
+            Schedule a 1-hour consultation with me at your convenience. Select a
+            date and time slot within the next 7 days.
+          </p>
+        </div>
+
+        <div class="booking-container">
+          <!-- Calendar View -->
+          <div class="calendar-wrapper">
+            <div class="calendar-header">
+              <button class="calendar-nav" id="prevWeek" title="Previous Month">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <h3 id="calendarTitle">Select a Date</h3>
+              <button class="calendar-nav" id="nextWeek" title="Next Month">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="calendar-days" id="calendarDays">
+              <!-- Calendar will load here -->
+            </div>
+          </div>
+
+          <!-- Time Slots -->
+          <div class="time-slots-wrapper">
+            <h3 class="time-slots-title">Available Time Slots</h3>
+            <p class="time-slots-subtitle" id="selectedDateText">
+              Select a date to see available time slots
+            </p>
+            <div class="time-slots-grid" id="timeSlotsGrid"></div>
+          </div>
+        </div>
+
+        <!-- Booking Form (Hidden until time slot selected) -->
+        <div
+          class="booking-form-wrapper"
+          id="bookingFormWrapper"
+          style="display: none"
+        >
+          <div class="booking-form-card">
+            <div class="booking-summary">
+              <h3>
+                <i class="fas fa-calendar-check"></i> Confirm Your Booking
+              </h3>
+              <div class="selected-slot-info">
+                <p>
+                  <i class="fas fa-calendar-alt"></i>
+                  <strong>Date:</strong> <span id="confirmDate"></span>
+                </p>
+                <p>
+                  <i class="fas fa-clock"></i> <strong>Time:</strong>
+                  <span id="confirmTime"></span>
+                </p>
+              </div>
+            </div>
+
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="bookingName">Full Name *</label>
+                  <input
+                    type="text"
+                    id="bookingName"
+                    name="bookingName"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="bookingEmail">Email Address *</label>
+                  <input
+                    type="email"
+                    id="bookingEmail"
+                    name="bookingEmail"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="bookingPhone">Phone Number *</label>
+                  <input
+                    type="tel"
+                    id="bookingPhone"
+                    name="bookingPhone"
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="bookingReason">Reason for Consultation *</label>
+                  <select id="bookingReason" name="bookingReason" required>
+                    <option value="">Select a reason</option>
+                    <option value="Home Purchase">Home Purchase</option>
+                    <option value="Refinancing">Refinancing</option>
+                    <option value="Pre-Approval">Pre-Approval</option>
+                    <option value="Investment Property">
+                      Investment Property
+                    </option>
+                    <option value="General Consultation">
+                      General Consultation
+                    </option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="bookingNotes">Additional Notes (Optional)</label>
+                <textarea
+                  id="bookingNotes"
+                  name="bookingNotes"
+                  placeholder="Any specific topics you'd like to discuss?"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="booking-actions">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="cancelBooking()"
+                >
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-check"></i> Confirm Booking
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container">
@@ -391,6 +558,21 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1760226629"></script>
+    <script>
+      // Force calendar initialization
+      console.log("Inline script loaded");
+      window.addEventListener("load", function () {
+        console.log("Window loaded, checking calendar...");
+        setTimeout(function () {
+          if (typeof initializeCalendar === "function") {
+            console.log("Calling initializeCalendar from inline script");
+            initializeCalendar();
+          } else {
+            console.error("initializeCalendar function not found!");
+          }
+        }, 1000);
+      });
+    </script>
   </body>
 </html>
