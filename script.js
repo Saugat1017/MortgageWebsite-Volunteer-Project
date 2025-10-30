@@ -42,25 +42,20 @@ window.addEventListener("scroll", () => {
 // Mortgage Calculator Functionality
 function calculateMortgage() {
   const homePrice = parseFloat(document.getElementById("homePrice").value);
-  const downPayment = parseFloat(document.getElementById("downPayment").value);
+  // Treat empty/invalid down payment as 0
+  const downPaymentRaw = document.getElementById("downPayment").value;
+  const downPaymentParsed = parseFloat(downPaymentRaw);
+  const downPayment = isNaN(downPaymentParsed) ? 0 : downPaymentParsed;
   const interestRate = parseFloat(
     document.getElementById("interestRate").value
   );
   const loanTerm = parseInt(document.getElementById("loanTerm").value);
 
-  // Validate inputs silently - if invalid, just return without showing errors
-  if (
-    isNaN(homePrice) ||
-    isNaN(downPayment) ||
-    isNaN(interestRate) ||
-    isNaN(loanTerm) ||
-    homePrice <= 0 ||
-    downPayment <= 0 ||
-    downPayment >= homePrice ||
-    interestRate <= 0
-  ) {
-    return;
-  }
+  // Validate inputs silently - allow 0 down payment and 0% interest
+  if (isNaN(homePrice) || homePrice <= 0) return;
+  if (isNaN(loanTerm) || loanTerm <= 0) return;
+  if (isNaN(interestRate) || interestRate < 0) return;
+  if (downPayment < 0 || downPayment > homePrice) return;
 
   // Validate property tax and insurance
   const annualPropertyTax =
@@ -72,8 +67,8 @@ function calculateMortgage() {
     return;
   }
 
-  // Calculate loan amount
-  const loanAmount = homePrice - downPayment;
+  // Calculate loan amount (never negative)
+  const loanAmount = Math.max(0, homePrice - downPayment);
 
   // Calculate monthly interest rate
   const monthlyInterestRate = interestRate / 100 / 12;
