@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Bookings - write only (no public read)
+    match /bookings/{document} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // Reviews - public read + write
+    match /reviews/{document} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        request.resource.data.name.size() <= 100 &&
+        request.resource.data.rating is int &&
+        request.resource.data.rating >= 1 &&
+        request.resource.data.rating <= 5 &&
+        request.resource.data.text is string &&
+        request.resource.data.text.size() > 0 &&
+        request.resource.data.text.size() <= 1000;
+      allow update, delete: if false;
+    }
+  }
+}

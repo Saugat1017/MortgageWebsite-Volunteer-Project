@@ -13,6 +13,22 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBRl1A2iVDu-qOYrCp_JKvs1ugg0mkzI7g",
+        authDomain: "database-for-motrgage-website.firebaseapp.com",
+        projectId: "database-for-motrgage-website",
+        storageBucket: "database-for-motrgage-website.firebasestorage.app",
+        messagingSenderId: "1026353803753",
+        appId: "1:1026353803753:web:d7a903d92c558cb82f9b78",
+        measurementId: "G-W7ZGZ51L44",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
   </head>
   <body>
     <!-- Navigation -->
@@ -108,6 +124,93 @@
               thrive. With dedication, transparency, and speed, I am here to
               make your lending experience a positive and successful one.
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Reviews Section -->
+    <section class="reviews-section" id="reviews">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="reviews-section-header">
+          <div class="reviews-title-row">
+            <span class="google-g-icon">
+              <svg width="32" height="32" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                <path fill="none" d="M0 0h48v48H0z"/>
+              </svg>
+            </span>
+            <h2 class="section-title reviews-main-title">Client Reviews</h2>
+          </div>
+          <div class="reviews-summary-bar">
+            <div class="summary-rating-block">
+              <span class="summary-score" id="avg-rating">—</span>
+              <div>
+                <div class="summary-stars" id="avg-stars"></div>
+                <span class="summary-count" id="review-count">0 reviews</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Cards Grid -->
+        <div class="reviews-grid" id="reviews-grid">
+          <div class="reviews-loading" id="reviews-loading">
+            <i class="fas fa-spinner fa-spin"></i>&nbsp; Loading reviews...
+          </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="view-more-container" id="view-more-container" style="display: none">
+          <button class="view-more-btn" id="view-more-btn">
+            <i class="fas fa-chevron-down"></i> View More Reviews
+          </button>
+        </div>
+
+        <!-- Add Review Form -->
+        <div class="add-review-section">
+          <h3>Share Your Experience</h3>
+          <p>Help others by sharing your experience working with Don Mario</p>
+          <form id="review-form" class="review-form" novalidate>
+            <div class="review-form-group">
+              <input
+                type="text"
+                id="reviewer-name"
+                placeholder="Your Full Name *"
+                autocomplete="name"
+              />
+            </div>
+            <div class="review-form-group">
+              <div class="star-selector" id="star-selector">
+                <span class="star-label">Your Rating:</span>
+                <span class="star-btn" data-value="1" title="1 star">&#9733;</span>
+                <span class="star-btn" data-value="2" title="2 stars">&#9733;</span>
+                <span class="star-btn" data-value="3" title="3 stars">&#9733;</span>
+                <span class="star-btn" data-value="4" title="4 stars">&#9733;</span>
+                <span class="star-btn" data-value="5" title="5 stars">&#9733;</span>
+              </div>
+              <input type="hidden" id="review-rating" value="0" />
+            </div>
+            <div class="review-form-group">
+              <textarea
+                id="review-text"
+                placeholder="Write your review... *"
+                rows="4"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary review-submit-btn" id="submit-review-btn">
+              <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+          </form>
+          <div id="review-success" class="review-success" style="display: none">
+            <i class="fas fa-check-circle"></i> Thank you! Your review has been submitted.
+          </div>
+          <div id="review-error" class="review-error" style="display: none">
+            <i class="fas fa-exclamation-circle"></i> Please fill in all fields and select a rating.
           </div>
         </div>
       </div>
@@ -322,5 +425,195 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      (function () {
+        const REVIEWS_PER_PAGE = 6;
+        let allReviews = [];
+        let displayedCount = 0;
+        let selectedRating = 0;
+
+        function calcAvg(reviews) {
+          if (!reviews.length) return 0;
+          return (reviews.reduce((s, r) => s + (r.rating || 5), 0) / reviews.length).toFixed(1);
+        }
+
+        function renderStars(rating, size) {
+          let html = "";
+          for (let i = 1; i <= 5; i++) {
+            const cls = i <= Math.round(rating) ? "star filled" : "star empty";
+            html += `<span class="${cls}" style="font-size:${size || "1.1rem"}">\u2605</span>`;
+          }
+          return html;
+        }
+
+        function updateSummary() {
+          const count = allReviews.length;
+          const avg = calcAvg(allReviews);
+          document.getElementById("avg-rating").textContent = count > 0 ? avg : "\u2014";
+          document.getElementById("review-count").textContent =
+            count + (count === 1 ? " review" : " reviews");
+          document.getElementById("avg-stars").innerHTML =
+            count > 0 ? renderStars(parseFloat(avg), "1.4rem") : "";
+        }
+
+        function getInitials(name) {
+          return (name || "?")
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase()
+            .slice(0, 2);
+        }
+
+        function getAvatarColor(name) {
+          const palette = ["#4285F4","#EA4335","#FBBC05","#34A853","#FF6D00","#7B1FA2","#0097A7","#c62828"];
+          let h = 0;
+          for (let i = 0; i < (name || "").length; i++)
+            h = name.charCodeAt(i) + ((h << 5) - h);
+          return palette[Math.abs(h) % palette.length];
+        }
+
+        function formatDate(ts) {
+          if (!ts) return "";
+          const d = ts.toDate ? ts.toDate() : new Date(ts);
+          const diff = Math.floor((Date.now() - d) / 1000);
+          if (diff < 60) return "just now";
+          if (diff < 3600) return Math.floor(diff / 60) + " min ago";
+          if (diff < 86400) return Math.floor(diff / 3600) + " hr ago";
+          if (diff < 2592000) return Math.floor(diff / 86400) + " days ago";
+          return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+        }
+
+        function buildCard(review) {
+          const card = document.createElement("div");
+          card.className = "review-card";
+          const initials = getInitials(review.name);
+          const color = getAvatarColor(review.name);
+          card.innerHTML = `
+            <div class="review-card-header">
+              <div class="reviewer-avatar" style="background:${color}">${initials}</div>
+              <div class="reviewer-info">
+                <span class="reviewer-name">${escHtml(review.name || "Anonymous")}</span>
+                <span class="reviewer-date">${formatDate(review.timestamp)}</span>
+              </div>
+              <div class="review-google-badge">
+                <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="review-card-stars">${renderStars(review.rating || 5)}</div>
+            <p class="review-card-text">${escHtml(review.text || "")}</p>`;
+          return card;
+        }
+
+        function escHtml(str) {
+          return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+        }
+
+        function showNextBatch() {
+          const grid = document.getElementById("reviews-grid");
+          const batch = allReviews.slice(displayedCount, displayedCount + REVIEWS_PER_PAGE);
+          batch.forEach((r) => grid.appendChild(buildCard(r)));
+          displayedCount += batch.length;
+          const vmContainer = document.getElementById("view-more-container");
+          vmContainer.style.display = displayedCount < allReviews.length ? "flex" : "none";
+        }
+
+        function loadReviews() {
+          db.collection("reviews")
+            .orderBy("timestamp", "desc")
+            .onSnapshot(
+              (snapshot) => {
+                allReviews = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+                displayedCount = 0;
+                const grid = document.getElementById("reviews-grid");
+                grid.innerHTML = "";
+                if (!allReviews.length) {
+                  grid.innerHTML =
+                    '<p class="no-reviews-msg">No reviews yet. Be the first to share your experience!</p>';
+                  updateSummary();
+                  return;
+                }
+                updateSummary();
+                showNextBatch();
+              },
+              (err) => {
+                console.error("Reviews load error:", err);
+                document.getElementById("reviews-grid").innerHTML =
+                  '<p class="no-reviews-msg">Could not load reviews. Please try again later.</p>';
+              }
+            );
+        }
+
+        // Star selector interactivity
+        const starBtns = document.querySelectorAll(".star-btn");
+        function highlightStars(n) {
+          starBtns.forEach((b) => b.classList.toggle("active", parseInt(b.dataset.value) <= n));
+        }
+        starBtns.forEach((btn) => {
+          btn.addEventListener("mouseover", () => highlightStars(+btn.dataset.value));
+          btn.addEventListener("mouseout", () => highlightStars(selectedRating));
+          btn.addEventListener("click", () => {
+            selectedRating = +btn.dataset.value;
+            document.getElementById("review-rating").value = selectedRating;
+            highlightStars(selectedRating);
+          });
+        });
+
+        // Submit review
+        document.getElementById("review-form").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("reviewer-name").value.trim();
+          const rating = parseInt(document.getElementById("review-rating").value);
+          const text = document.getElementById("review-text").value.trim();
+          const errEl = document.getElementById("review-error");
+          const successEl = document.getElementById("review-success");
+
+          errEl.style.display = "none";
+          successEl.style.display = "none";
+
+          if (!name || !text || rating < 1) {
+            errEl.style.display = "flex";
+            return;
+          }
+
+          const btn = document.getElementById("submit-review-btn");
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+          try {
+            await db.collection("reviews").add({
+              name,
+              rating,
+              text,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            document.getElementById("reviewer-name").value = "";
+            document.getElementById("review-text").value = "";
+            document.getElementById("review-rating").value = 0;
+            selectedRating = 0;
+            highlightStars(0);
+            successEl.style.display = "flex";
+            setTimeout(() => (successEl.style.display = "none"), 6000);
+          } catch (err) {
+            console.error("Submit error:", err);
+            errEl.textContent = "\u26a0 Failed to submit. Please try again.";
+            errEl.style.display = "flex";
+          } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Review';
+          }
+        });
+
+        // View more
+        document.getElementById("view-more-btn").addEventListener("click", showNextBatch);
+
+        loadReviews();
+      })();
+    </script>
   </body>
 </html>
